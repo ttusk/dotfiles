@@ -1,0 +1,12 @@
+*
+!.gitignore
+!.zprofile
+!.zshenv
+!.zshrc
+!.config/
+.config/*
+!.config/ghostty/
+!.config/ghostty/config
+!.config/nvim/
+!.config/nvim/init.lua
+!.config/starship.toml

@@ -1,0 +1,8 @@
+theme = iTerm2 Solarized Light
+cursor-style = block
+cursor-style-blink = false
+
+font-family = "Jetbrains Mono Nerd Font"
+shell-integration-features = ssh-terminfo,ssh-env,no-cursor
+
+

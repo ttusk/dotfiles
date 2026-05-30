@@ -1,0 +1,72 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$haskell\
+$python\
+$character"""
+
+[username]
+style_user = "#d33682"
+style_root = "bold #dc322f"
+format = "[$user]($style) · "
+show_always = true
+aliases = { "luizgustavo" = "(*ˊᵕˋ*)" }
+
+[hostname]
+style = "#93a1a1"
+disabled = true
+format = "[$hostname]($style) "
+ssh_only = false
+aliases = { "MacBook-Air" = "air" }
+
+[directory]
+style = "#268bd2"
+format = "[$path]($style) "
+truncation_length = 3
+
+[git_branch]
+format = "[:: $branch]($style)"
+style = "#93a1a1"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "#93a1a1"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bold #cb4b16) ($ahead_behind$stashed)]($style)"
+style = "#2aa198"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "#b58900"
+
+[haskell]
+symbol = "λ"
+style = "#6c71c4"
+format = '([$symbol $version]($style) )'
+
+[python]
+format = "[$virtualenv]($style) "
+style = "#93a1a1"
+detect_extensions = []
+detect_files = []
+
+[character]
+success_symbol = "[λ](#586e75)"
+error_symbol = "[λ](#dc322f)"
+vimcmd_symbol = "[λ](#859900)"
