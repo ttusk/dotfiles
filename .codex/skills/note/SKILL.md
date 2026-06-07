@@ -7,6 +7,32 @@ description: Capture an insight, idea, study note, flashcard, or reference into 
 
 Saves a note to the Obsidian vault at `/Users/luizgustavo/git/vault`.
 
+## Tool choice
+
+Use the right tool for the job:
+
+- Use `qmd` to search the vault for related notes and existing context.
+- Use `Obsidian CLI` when you need vault-aware note operations such as create, append, prepend, move, rename, open, or template-based creation.
+- Use direct file editing only as a fallback when `Obsidian CLI` is unavailable or when the task is simpler to perform directly.
+
+`Obsidian CLI` is especially useful when:
+
+- creating a note from a template
+- appending or prepending content to an existing note
+- moving or renaming a note while keeping the operation inside Obsidian's vault model
+- opening the note after creation
+
+Relevant commands from the official CLI:
+
+```bash
+obsidian vault="vault" create path="folder/note.md" content="..."
+obsidian vault="vault" create path="folder/note.md" template="note" open
+obsidian vault="vault" append path="folder/note.md" content="..."
+obsidian vault="vault" prepend path="folder/note.md" content="..."
+obsidian vault="vault" move path="folder/note.md" to="folder/new-name.md"
+obsidian vault="vault" open path="folder/note.md"
+```
+
 ## Writing style
 
 All notes must follow the user's voice. Write like a human, not like an AI.
@@ -95,7 +121,8 @@ Resposta
 1. Understand what the user wants to capture
 2. Pick the right folder based on content type
 3. Search the vault for related notes with `qmd search -c vault "topic"` when available
-4. Write the note with frontmatter, content, and links to related notes
-5. If it is a flashcard, use the vault's flashcard format with `#flashcards/{subject}` instead of YAML frontmatter
-6. Update the qmd index: `qmd update -c vault && qmd embed -c vault 2>/dev/null`
-7. Confirm to the user what was saved and where
+4. If `Obsidian CLI` is available and the task benefits from vault-aware operations, use it to create, append, prepend, move, rename, or open the note
+5. Otherwise write the note directly with frontmatter, content, and links to related notes
+6. If it is a flashcard, use the vault's flashcard format with `#flashcards/{subject}` instead of YAML frontmatter
+7. Update the qmd index: `qmd update -c vault && qmd embed -c vault 2>/dev/null`
+8. Confirm to the user what was saved and where
