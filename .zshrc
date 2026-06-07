@@ -17,6 +17,8 @@ alias commit='git commit -m'
 alias cls='clear'
 alias timer='timr-tui'
 alias ..='cd ..'
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+alias dots='dotfiles'
 
 # 5. PNPM
 export PNPM_HOME="/Users/luizgustavo/Library/pnpm"
