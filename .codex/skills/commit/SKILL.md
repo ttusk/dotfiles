@@ -25,6 +25,15 @@ Types: `feat`, `fix`, `refactor`, `test`, `chore`, `docs`
 6. no emoji
 7. one logical change per commit
 
+## Luiz's dotfiles repo
+
+For Luiz Gustavo's dotfiles setup:
+
+- the dotfiles repo is a bare repo at `$HOME/.dotfiles.git` with `$HOME` as the work tree
+- use the `dots` alias instead of plain `git` when operating on that repo
+- prefer commands like `dots status`, `dots diff`, `dots add`, `dots commit`, and `dots push`
+- if files are ignored but intentionally versioned in the dotfiles repo, use `dots add -f <files>`
+
 ## Before committing
 
 Inspect the diff:
