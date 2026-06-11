@@ -35,3 +35,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # 7. Outros Envs (GHCup, etc)
 [ -f "/Users/luizgustavo/.ghcup/env" ] && . "/Users/luizgustavo/.ghcup/env"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+vault_qmd() {
+  (cd /Users/luizgustavo/git/vault && qmd "$@")
+}
+

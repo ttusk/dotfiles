@@ -22,16 +22,34 @@ Use the real folder names exactly as they exist. They are lowercase in this vaul
 
 ## Search workflow
 
-### 1. Prefer qmd when it is configured
+### 1. Prefer a vault-local qmd index
 
-Use qmd as the primary search tool when the `vault` collection already exists.
+Use qmd as the primary search tool when the vault already has a local
+`.qmd/index.yml` or `.qmd/index.yaml`.
+
+The qmd CLI auto-detects a project-local `.qmd` by walking upward from the
+current directory and, when found, keeps both config and SQLite index writes
+inside that project. For this vault, prefer invoking qmd from the vault root:
+
+```bash
+vault_qmd() {
+  (cd /Users/luizgustavo/git/vault && qmd "$@")
+}
+```
+
+Use `vault_qmd` for all qmd commands when the vault has its own `.qmd`. This
+gives every agent the same source of truth instead of creating per-workspace
+SQLite indexes.
+
+If the vault does not have a local `.qmd` yet, initialize one from the vault
+root with `qmd init`, then configure the vault collection there.
 
 Search commands:
 
 ```bash
-qmd query -c vault "search term"
-qmd search -c vault "search term"
-qmd vsearch -c vault "search term"
+vault_qmd query -c vault "search term"
+vault_qmd search -c vault "search term"
+vault_qmd vsearch -c vault "search term"
 ```
 
 Use `--json` or `--files` when structured output helps. Use `-n 10` when the search is broad.
@@ -39,10 +57,26 @@ Use `--json` or `--files` when structured output helps. Use `-n 10` when the sea
 If the `vault` collection does not exist yet, initialize it first:
 
 ```bash
-qmd collection add /Users/luizgustavo/git/vault -n vault
+cd /Users/luizgustavo/git/vault
+qmd init
+qmd collection add . -n vault
 qmd update -c vault
 qmd embed -c vault 2>/dev/null
 ```
+
+If the harness cannot rely on the vault-local `.qmd` yet and qmd reports
+`SQLITE_CANTOPEN`, `unable to open database file`, or a misleading `sqlite-vec`
+startup failure, wrap qmd with a workspace-local cache before falling back to `rg`:
+
+```bash
+qmd_local() {
+  mkdir -p "$PWD/.qmd-cache/qmd"
+  XDG_CACHE_HOME="$PWD/.qmd-cache" qmd "$@"
+}
+```
+
+Use that only as a compatibility fallback. Prefer the vault-local `.qmd` when
+available.
 
 ### 2. Use snippets before reading whole files
 
