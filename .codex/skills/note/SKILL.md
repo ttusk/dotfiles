@@ -46,6 +46,12 @@ All notes must follow the user's voice. Write like a human, not like an AI.
 - No excessive formatting. Bold only for key terms on first mention
 - No emoji in prose
 
+### LaTeX / Math
+
+- Use `$...$` for inline math that stays in the paragraph. Never `$$...$$` inline. Double dollars break the line.
+- Use `$$...$$` only for display formulas that live on their own line, centered.
+- Examples: write `$\Omega$` inline in a sentence, but display a standalone equation with `$$P(A) = \frac{1}{6}$$` on its own line.
+
 ## How to decide where it goes
 
 Based on the content, pick the right location:
@@ -99,11 +105,11 @@ Rules:
 1. Prefer appending to the subject file in `concursos/caderno-de-erros/` instead of creating scattered notes
 2. Inside each subject file, keep the syllabus under `## Assuntos mapeados`
 3. Each mapped topic should be a `###` heading so it can be collapsed in Obsidian
-4. When logging a new mistake, append it under the matching `###` topic heading whenever possible
+4. When the user brings a mistake, convert it into a concise macete, regra de bolso, ou resumo operacional under the matching `###` topic heading
 5. If the correct topic heading does not exist yet, create it as a new `###` heading under `## Assuntos mapeados`
-6. Keep one error per entry
-7. Record the practical cause of the mistake, not just the topic name
-8. End each entry with a short correction or recall cue that helps avoid repeating the mistake
+6. Do not create dated entries, bullet logs, or fields like `Questao ou fonte`, `Onde eu errei`, `Correcao`, or `Sinal de alerta`
+7. Do not create a separate `## Erros registrados` section
+8. Keep only the distilled takeaway that helps in the next question. The note should read like a compact study sheet, not an error diary
 
 Suggested subject note shape:
 
@@ -114,26 +120,12 @@ Suggested subject note shape:
 
 ### Assunto 1
 
-#### YYYY-MM-DD - erro curto
-- Questao ou fonte:
-- Onde eu errei:
-- Correcao:
-- Sinal de alerta para a proxima:
+Macete ou resumo curto do assunto.
 
 ### Assunto 2
 ```
 
-If the user sends only a raw syllabus or topic list, create just the `###` topic headings first and leave them empty until real errors are added.
-
-Suggested error entry shape:
-
-```md
-#### YYYY-MM-DD - erro curto
-- Questao ou fonte:
-- Onde eu errei:
-- Correcao:
-- Sinal de alerta para a proxima:
-```
+If the user sends only a raw syllabus or topic list, create just the `###` topic headings first and leave them empty until real macetes are added.
 
 ## Flashcards
 
