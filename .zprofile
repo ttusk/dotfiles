@@ -1,11 +1,9 @@
-
 # >>> coursier install directory >>>
-export PATH="$PATH:/Users/luizgustavo/Library/Application Support/Coursier/bin"
+export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 # <<< coursier install directory <<<
 
 # Added by OrbStack: command-line tools and integration
-# This won't be added again if you remove it.
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null
 
 # Added by Obsidian
-export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+[ -d "/Applications/Obsidian.app" ] && export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"

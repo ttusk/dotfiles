@@ -10,3 +10,8 @@
 !.config/nvim/
 !.config/nvim/init.lua
 !.config/starship.toml
+!.config/opencode/
+!.config/opencode/**
+!.codex/
+!.codex/**
+!install.sh

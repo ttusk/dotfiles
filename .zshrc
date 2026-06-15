@@ -21,7 +21,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias dots='dotfiles'
 
 # 5. PNPM
-export PNPM_HOME="/Users/luizgustavo/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -30,13 +30,13 @@ esac
 # 6. Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "/Users/luizgustavo/.bun/_bun" ] && source "/Users/luizgustavo/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # 7. Outros Envs (GHCup, etc)
-[ -f "/Users/luizgustavo/.ghcup/env" ] && . "/Users/luizgustavo/.ghcup/env"
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 vault_qmd() {
-  (cd /Users/luizgustavo/git/vault && qmd "$@")
+  (cd $HOME/git/vault && qmd "$@")
 }
 
