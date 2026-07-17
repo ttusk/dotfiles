@@ -12,7 +12,7 @@ Searches and retrieves notes from the Obsidian vault at `/Users/luizgustavo/git/
 Prioritize these folders based on the user's intent:
 
 - `flashcards/`: spaced-repetition cards, including subjects like `portugues/`
-- `concursos/`: concurso prep material and study notes
+- `concursos/`: concurso prep material. Each concurso has its own folder (`concursos/bb/`, `concursos/abgf/`) with `index.md` (edital + study index) and `caderno-de-erros/` (subject files)
 - `uni/`: faculdade notes, including TCC material
 - `curriculo/`: résumé, experience summaries, professional positioning
 - `vida/`: personal planning and operational notes
@@ -22,34 +22,16 @@ Use the real folder names exactly as they exist. They are lowercase in this vaul
 
 ## Search workflow
 
-### 1. Prefer a vault-local qmd index
+### 1. Prefer qmd when it is configured
 
-Use qmd as the primary search tool when the vault already has a local
-`.qmd/index.yml` or `.qmd/index.yaml`.
-
-The qmd CLI auto-detects a project-local `.qmd` by walking upward from the
-current directory and, when found, keeps both config and SQLite index writes
-inside that project. For this vault, prefer invoking qmd from the vault root:
-
-```bash
-vault_qmd() {
-  (cd /Users/luizgustavo/git/vault && qmd "$@")
-}
-```
-
-Use `vault_qmd` for all qmd commands when the vault has its own `.qmd`. This
-gives every agent the same source of truth instead of creating per-workspace
-SQLite indexes.
-
-If the vault does not have a local `.qmd` yet, initialize one from the vault
-root with `qmd init`, then configure the vault collection there.
+Use qmd as the primary search tool when the `vault` collection already exists.
 
 Search commands:
 
 ```bash
-vault_qmd query -c vault "search term"
-vault_qmd search -c vault "search term"
-vault_qmd vsearch -c vault "search term"
+qmd query -c vault "search term"
+qmd search -c vault "search term"
+qmd vsearch -c vault "search term"
 ```
 
 Use `--json` or `--files` when structured output helps. Use `-n 10` when the search is broad.
@@ -57,26 +39,10 @@ Use `--json` or `--files` when structured output helps. Use `-n 10` when the sea
 If the `vault` collection does not exist yet, initialize it first:
 
 ```bash
-cd /Users/luizgustavo/git/vault
-qmd init
-qmd collection add . -n vault
+qmd collection add /Users/luizgustavo/git/vault -n vault
 qmd update -c vault
 qmd embed -c vault 2>/dev/null
 ```
-
-If the harness cannot rely on the vault-local `.qmd` yet and qmd reports
-`SQLITE_CANTOPEN`, `unable to open database file`, or a misleading `sqlite-vec`
-startup failure, wrap qmd with a workspace-local cache before falling back to `rg`:
-
-```bash
-qmd_local() {
-  mkdir -p "$PWD/.qmd-cache/qmd"
-  XDG_CACHE_HOME="$PWD/.qmd-cache" qmd "$@"
-}
-```
-
-Use that only as a compatibility fallback. Prefer the vault-local `.qmd` when
-available.
 
 ### 2. Use snippets before reading whole files
 
@@ -107,11 +73,25 @@ Do not run `rg` just to confirm what qmd already found.
 
 Pick the likely area first, then widen only if needed.
 
-- Concurso or revisão: search `flashcards/` first, then `concursos/`
+- Concurso or revisão: check `concursos/{concurso}/index.md` first for edital info, then `concursos/{concurso}/caderno-de-erros/` for subject material. Also search `flashcards/` for existing cards on the topic.
 - Faculdade, disciplina, TCC: search `uni/` first
 - Currículo, experiência, estágio, projetos: search `curriculo/` first
 - Organização pessoal, rotinas, pendências: search `vida/` first
 - Broad recall or synthesis: search everything
+
+### Concurso structure
+
+Each concurso is self-contained under `concursos/{concurso}/`:
+
+```
+concursos/
+  {concurso}/
+    index.md                       # edital info (prazos, vagas, salários, provas) + study index
+    caderno-de-erros/
+      {subject}.md                 # one file per subject with ### topic headings
+```
+
+The `index.md` holds everything needed to operate the concurso: deadlines, cargo details, how to enroll, and the full list of subject files to study. Subject files live inside `caderno-de-erros/` with `## Assuntos mapeados` and `###` topic headings. No cross-links between different concursos.
 
 If the user asks whether a topic already has a flashcard, inspect `flashcards/` before suggesting new material.
 

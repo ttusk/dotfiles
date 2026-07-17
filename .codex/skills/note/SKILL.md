@@ -65,8 +65,8 @@ Based on the content, pick the right location:
 | Project-specific note | `projects/{project}/{slug}.md` | note |
 | Useful link or tool | `references/{slug}.md` | note |
 | Flashcard | `flashcards/{subject}/{slug}.md` | flashcard |
-| Concurso study note | `concursos/{slug}.md` | note |
-| Concurso error log by subject | `concursos/caderno-de-erros/{subject}.md` | caderno-de-erros |
+| Concurso overview (new edital) | `concursos/{concurso}/index.md` | note |
+| Concurso error log by subject | `concursos/{concurso}/caderno-de-erros/{subject}.md` | caderno-de-erros |
 | Faculdade note | `uni/{area}/{slug}.md` | note |
 | Currículo or career material | `curriculo/{slug}.md` | note |
 | Personal planning or life admin | `vida/{slug}.md` | note |
@@ -100,9 +100,33 @@ If the note relates to existing notes, add `[[links]]` to connect them. Search w
 
 Use this format when the user wants to save mistakes from questões, simulados, revisões, or weak spots by subject.
 
+### Structure
+
+Each concurso has its own self-contained folder under `concursos/{concurso}/`:
+
+```
+concursos/
+  {concurso}/
+    index.md                       # edital info + caderno de erros index
+    caderno-de-erros/
+      {subject}.md                 # one file per subject
+```
+
+The `index.md` is the central page: it holds the edital summary (prazos, vagas, salários, estrutura de provas, inscrição) and links to every subject file under `caderno-de-erros/`. Each concurso stands alone. No cross-links between different concursos.
+
+### When the user asks to add a new concurso
+
+1. Create `concursos/{concurso}/index.md` with full edital details and a `## Caderno de erros` section listing subjects
+2. Create `concursos/{concurso}/caderno-de-erros/` with one file per subject
+3. Each subject file gets `###` topic headings mapped from the edital syllabus (Anexo IV), left empty until macetes are added
+4. If the user picks a specific cargo, highlight it and remove extraneous cargos from the material
+5. Merge overlapping subjects between Conhecimentos Gerais and Específicos into a single file when they cover the same ground
+
+### Subject file format
+
 Rules:
 
-1. Prefer appending to the subject file in `concursos/caderno-de-erros/` instead of creating scattered notes
+1. Prefer appending to the subject file in `concursos/{concurso}/caderno-de-erros/{subject}.md` instead of creating scattered notes
 2. Inside each subject file, keep the syllabus under `## Assuntos mapeados`
 3. Each mapped topic should be a `###` heading so it can be collapsed in Obsidian
 4. When the user brings a mistake, convert it into a concise macete, regra de bolso, ou resumo operacional under the matching `###` topic heading

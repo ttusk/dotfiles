@@ -12,7 +12,7 @@ Searches and retrieves notes from the Obsidian vault at `/Users/luizgustavo/git/
 Prioritize these folders based on the user's intent:
 
 - `flashcards/`: spaced-repetition cards, including subjects like `portugues/`
-- `concursos/`: concurso prep material and study notes
+- `concursos/`: concurso prep material. Each concurso has its own folder (`concursos/bb/`, `concursos/abgf/`) with `index.md` (edital + study index) and `caderno-de-erros/` (subject files)
 - `uni/`: faculdade notes, including TCC material
 - `curriculo/`: résumé, experience summaries, professional positioning
 - `vida/`: personal planning and operational notes
@@ -73,11 +73,25 @@ Do not run `rg` just to confirm what qmd already found.
 
 Pick the likely area first, then widen only if needed.
 
-- Concurso or revisão: search `flashcards/` first, then `concursos/`
+- Concurso or revisão: check `concursos/{concurso}/index.md` first for edital info, then `concursos/{concurso}/caderno-de-erros/` for subject material. Also search `flashcards/` for existing cards on the topic.
 - Faculdade, disciplina, TCC: search `uni/` first
 - Currículo, experiência, estágio, projetos: search `curriculo/` first
 - Organização pessoal, rotinas, pendências: search `vida/` first
 - Broad recall or synthesis: search everything
+
+### Concurso structure
+
+Each concurso is self-contained under `concursos/{concurso}/`:
+
+```
+concursos/
+  {concurso}/
+    index.md                       # edital info (prazos, vagas, salários, provas) + study index
+    caderno-de-erros/
+      {subject}.md                 # one file per subject with ### topic headings
+```
+
+The `index.md` holds everything needed to operate the concurso: deadlines, cargo details, how to enroll, and the full list of subject files to study. Subject files live inside `caderno-de-erros/` with `## Assuntos mapeados` and `###` topic headings. No cross-links between different concursos.
 
 If the user asks whether a topic already has a flashcard, inspect `flashcards/` before suggesting new material.
 
