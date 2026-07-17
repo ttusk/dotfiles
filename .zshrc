@@ -40,3 +40,4 @@ vault_qmd() {
   (cd $HOME/git/vault && qmd "$@")
 }
 
+export PATH="$HOME/.opencode/bin:$PATH"
