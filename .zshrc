@@ -14,11 +14,22 @@ alias vim='nvim'
 alias push='git push'
 alias add='git add'
 alias commit='git commit -m'
+alias clone='git clone'
+alias pull='git pull'
 alias cls='clear'
 alias timer='timr-tui'
 alias ..='cd ..'
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias dots='dotfiles'
+
+force() {
+  if [ $# -eq 0 ]; then
+    echo 'uso: force "mensagem do commit"'
+    return 2
+  fi
+
+  git add . && git commit -m "$*" && git push
+}
 
 # 5. PNPM
 export PNPM_HOME="$HOME/Library/pnpm"
