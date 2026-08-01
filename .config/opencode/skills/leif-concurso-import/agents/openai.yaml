@@ -1,4 +1,0 @@
-interface:
-  display_name: "Leif Concurso Import"
-  short_description: "Map an edital into Leif and optionally create Tec Concursos cadernos."
-  default_prompt: "Map this edital, create Tec cadernos if useful, and import the concurso into Leif."

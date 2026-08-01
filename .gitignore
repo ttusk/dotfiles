@@ -1,17 +1,5 @@
-*
-!.gitignore
-!.zprofile
-!.zshenv
-!.zshrc
-!.config/
-.config/*
-!.config/ghostty/
-!.config/ghostty/config
-!.config/nvim/
-!.config/nvim/init.lua
-!.config/starship.toml
-!.config/opencode/
-!.config/opencode/**
-!.codex/
-!.codex/**
-!install.sh
+# This repository is maintained from a regular clone. The deployed bare
+# worktree hides untracked files via `status.showUntrackedFiles = no`.
+.DS_Store
+*.swp
+*.swo

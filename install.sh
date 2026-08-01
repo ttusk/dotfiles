@@ -77,6 +77,31 @@ install_dotfiles() {
   git --git-dir="$DOTFILES_GIT_DIR" --work-tree="$HOME" config --local status.showUntrackedFiles no
 }
 
+install_skills() {
+  log "Linking personal agent skills"
+
+  local skills_dir="$DOTFILES_DIR/.local/share/dotfiles/skills"
+  local client_dir skill target
+
+  [[ -d "$skills_dir" ]] || return
+
+  for client_dir in "$HOME/.codex/skills" "$HOME/.config/opencode/skills"; do
+    mkdir -p "$client_dir"
+
+    for skill in "$skills_dir"/*; do
+      [[ -d "$skill" ]] || continue
+      target="$client_dir/$(basename "$skill")"
+
+      if [[ -e "$target" && ! -L "$target" ]]; then
+        warn "Skipping existing skill directory: $target"
+        continue
+      fi
+
+      ln -sfn "$skill" "$target"
+    done
+  done
+}
+
 brew_install_formulae() {
   log "Installing Homebrew formulae"
 
@@ -272,6 +297,7 @@ main() {
   find_brew
 
   install_dotfiles
+  install_skills
   brew_install_formulae
   brew_install_casks
   link_brew_tools
@@ -287,4 +313,6 @@ main() {
   log "Done"
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi
