@@ -12,9 +12,8 @@ cd ~/src/dotfiles
 
 The installer backs up conflicting tracked files, installs the declared Homebrew
 packages, and checks out this repository as the `$HOME` worktree of
-`~/.dotfiles.git`. It also links the personal skills in
-`~/.local/share/dotfiles/skills` into Codex and OpenCode without replacing their
-managed skill directories.
+`~/.dotfiles.git`. Personal Codex skills live directly in `.codex/skills` and
+are restored with the rest of the repository.
 
 ## Manage deployed files
 
@@ -26,13 +25,11 @@ dotfiles commit -m 'chore: update zsh configuration'
 ```
 
 Do not commit credentials, machine-specific tokens, or generated application
-state. Keep personal skills only in `.local/share/dotfiles/skills`; they are
-linked to both agent clients by `install.sh`.
+state. Keep personal skills under `.codex/skills`.
 
 ## Verification
 
 ```sh
-bash tests/install-skills-test.sh
 bash -n install.sh
 zsh -n .zprofile .zshenv .zshrc
 ```

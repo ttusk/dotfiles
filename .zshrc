@@ -41,5 +41,3 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 vault_qmd() {
   (cd "$HOME/git/vault" && qmd "$@")
 }
-
-export PATH="$HOME/.opencode/bin:$PATH"

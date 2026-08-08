@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Reader"
+  short_description: "Read and route PDFs with pdf-inspector"
+  default_prompt: "Use $pdf-reader to inspect this PDF, extract structured text, and report any pages that need OCR."
