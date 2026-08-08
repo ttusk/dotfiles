@@ -2,6 +2,19 @@
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # 2. Starship Prompt
+__set_starship_theme() {
+  local config="$HOME/.config/starship.toml"
+
+  if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
+    config="$HOME/.config/starship-dark.toml"
+  fi
+
+  export STARSHIP_CONFIG="$config"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd __set_starship_theme
+__set_starship_theme
 eval "$(starship init zsh)"
 
 # 3. NVM (Node Version Manager)
