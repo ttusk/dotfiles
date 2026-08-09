@@ -15,6 +15,18 @@ vim.pack.add({
         src = "https://github.com/nvim-telescope/telescope.nvim",
         name = "telescope",
     },
+    {
+        src = "https://github.com/mfussenegger/nvim-lint",
+        name = "nvim-lint",
+    },
+    {
+        src = "https://github.com/lewis6991/gitsigns.nvim",
+        name = "gitsigns",
+    },
+    -- {
+    --     src = "https://github.com/folke/which-key.nvim",
+    --     name = "which-key",
+    -- },
 })
 
 require("nvim-tree").setup({
@@ -87,3 +99,55 @@ require("telescope").setup({
         },
     },
 })
+require("gitsigns").setup({
+    signcolumn = true,
+    numhl = true,
+    linehl = false,
+})
+-- local which_key = require("which-key")
+--
+-- which_key.setup({
+--     delay = 200,
+--     icons = {
+--         mappings = false,
+--         rules = false,
+--         colors = false,
+--         breadcrumb = ">",
+--         separator = "->",
+--         group = "+",
+--         ellipsis = "...",
+--         keys = {
+--             Up = "UP",
+--             Down = "DOWN",
+--             Left = "LEFT",
+--             Right = "RIGHT",
+--             C = "C",
+--             M = "M",
+--             D = "D",
+--             S = "S",
+--             Esc = "ESC",
+--             CR = "ENTER",
+--             NL = "ENTER",
+--             BS = "BS",
+--             Space = "SPACE",
+--             Tab = "TAB",
+--             F1 = "F1",
+--             F2 = "F2",
+--             F3 = "F3",
+--             F4 = "F4",
+--             F5 = "F5",
+--             F6 = "F6",
+--             F7 = "F7",
+--             F8 = "F8",
+--             F9 = "F9",
+--             F10 = "F10",
+--             F11 = "F11",
+--             F12 = "F12",
+--         },
+--     },
+-- })
+--
+-- which_key.add({
+--     { "<leader>f", group = "find" },
+--     { "<leader>m", group = "markdown" },
+-- })
