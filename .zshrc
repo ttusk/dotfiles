@@ -35,6 +35,15 @@ alias ..='cd ..'
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias dots='dotfiles'
 
+force() {
+  if [ $# -eq 0 ]; then
+    echo 'uso: force "mensagem do commit"'
+    return 2
+  fi
+
+  git add . && git commit -m "$*" && git push
+}
+
 # 5. PNPM
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
@@ -52,5 +61,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 vault_qmd() {
-  (cd "$HOME/git/vault" && qmd "$@")
+  (cd $HOME/git/vault && qmd "$@")
 }
