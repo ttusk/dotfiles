@@ -12,3 +12,5 @@ statusLine:
   separator: ascii
   preset: ascii
   transparent: true
+dev:
+  autoqaConsent: granted
