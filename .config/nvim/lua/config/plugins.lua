@@ -23,6 +23,10 @@ vim.pack.add({
         src = "https://github.com/lewis6991/gitsigns.nvim",
         name = "gitsigns",
     },
+    {
+        src = "https://github.com/kylechui/nvim-surround",
+        name = "nvim-surround",
+    },
     -- {
     --     src = "https://github.com/folke/which-key.nvim",
     --     name = "which-key",
@@ -47,10 +51,10 @@ require("nvim-tree").setup({
                 folder = {
                     arrow_closed = ">",
                     arrow_open = "v",
-                    default = "[D]",
-                    open = "[O]",
-                    empty = "[E]",
-                    empty_open = "[O]",
+                    default = "",
+                    open = "",
+                    empty = "",
+                    empty_open = "",
                     symlink = "@",
                     symlink_open = "@",
                 },
@@ -104,6 +108,7 @@ require("gitsigns").setup({
     numhl = true,
     linehl = false,
 })
+require("nvim-surround").setup({})
 -- local which_key = require("which-key")
 --
 -- which_key.setup({
