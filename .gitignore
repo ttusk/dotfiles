@@ -1,5 +1,28 @@
-# This repository is maintained from a regular clone. The deployed bare
-# worktree hides untracked files via `status.showUntrackedFiles = no`.
-.DS_Store
-*.swp
-*.swo
+*
+**/.DS_Store
+**/__pycache__/
+!.gitignore
+!install.sh
+
+# Shell and terminal
+!.zprofile
+!.zshenv
+!.zshrc
+!.tmux.conf
+
+# Application configuration
+!.config/
+.config/*
+!.config/ghostty/
+!.config/ghostty/config
+!.config/nvim/
+!.config/nvim/**
+!.config/starship.toml
+!.config/opencode/
+!.config/opencode/**
+
+# Codex skills
+!.codex/
+.codex/*
+!.codex/skills/
+!.codex/skills/**

@@ -77,7 +77,6 @@ install_dotfiles() {
   git --git-dir="$DOTFILES_GIT_DIR" --work-tree="$HOME" config --local status.showUntrackedFiles no
 }
 
-
 brew_install_formulae() {
   log "Installing Homebrew formulae"
 
@@ -288,6 +287,4 @@ main() {
   log "Done"
 }
 
-if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
-  main "$@"
-fi
+main "$@"
