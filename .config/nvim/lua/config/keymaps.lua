@@ -30,4 +30,8 @@ map("<leader>ml", "<cmd>MarkdownLint<cr>", "Lint Markdown buffer")
 map("<leader>d", function()
     vim.diagnostic.open_float(0, { scope = "line" })
 end, "Show diagnostic details")
+map("gd", vim.lsp.buf.definition, "Go to definition")
+map("gI", vim.lsp.buf.implementation, "Go to implementation")
+map("gr", vim.lsp.buf.references, "Find references")
+
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
