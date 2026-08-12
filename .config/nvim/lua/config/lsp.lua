@@ -52,3 +52,17 @@ end
 if vim.fn.executable("typescript-language-server") == 1 then
     vim.lsp.enable("ts_ls")
 end
+
+vim.lsp.config["rust_analyzer"] = {
+    cmd = { "rust-analyzer" },
+    filetypes = { "rust" },
+    root_markers = {
+        "Cargo.toml",
+        "rust-project.json",
+        ".git",
+    },
+}
+
+if vim.fn.executable("rust-analyzer") == 1 then
+    vim.lsp.enable("rust_analyzer")
+end

@@ -13,6 +13,7 @@ local function system_background()
 end
 
 opt.termguicolors = true
+
 opt.background = system_background()
 
 require("solarized").setup({})
