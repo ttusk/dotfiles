@@ -14,3 +14,4 @@ statusLine:
   transparent: true
 dev:
   autoqaConsent: granted
+textVerbosity: low
