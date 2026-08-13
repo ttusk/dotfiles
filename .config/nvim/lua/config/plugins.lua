@@ -27,6 +27,10 @@ vim.pack.add({
         src = "https://github.com/kylechui/nvim-surround",
         name = "nvim-surround",
     },
+    {
+        src = "https://github.com/echasnovski/mini.nvim",
+        name = "mini",
+    },
     -- {
     --     src = "https://github.com/folke/which-key.nvim",
     --     name = "which-key",
@@ -109,6 +113,12 @@ require("gitsigns").setup({
     linehl = false,
 })
 require("nvim-surround").setup({})
+require("mini.pairs").setup({
+    mappings = {
+        ["<"] = { action = "open", pair = "<>" },
+        [">"] = { action = "close", pair = "<>" },
+    },
+})
 -- local which_key = require("which-key")
 --
 -- which_key.setup({

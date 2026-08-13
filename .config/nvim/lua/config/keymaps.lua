@@ -35,3 +35,38 @@ map("gI", vim.lsp.buf.implementation, "Go to implementation")
 map("gr", vim.lsp.buf.references, "Find references")
 
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
+
+local function completion_navigation(forward)
+    if vim.fn.pumvisible() == 1 then
+        return forward and "<C-n>" or "<C-p>"
+    end
+    return forward and "<Tab>" or "<S-Tab>"
+end
+
+local function accept_completion()
+    local completion = vim.fn.complete_info({ "selected" })
+    if vim.fn.pumvisible() == 1 and completion.selected >= 0 then
+        return "<C-y>"
+    end
+    return "<CR>"
+end
+
+vim.keymap.set("i", "<Tab>", function()
+    return completion_navigation(true)
+end, { expr = true, replace_keycodes = true, silent = true, desc = "Next completion" })
+
+vim.keymap.set("i", "<S-Tab>", function()
+    return completion_navigation(false)
+end, { expr = true, replace_keycodes = true, silent = true, desc = "Previous completion" })
+
+vim.keymap.set("i", "<CR>", accept_completion, {
+    expr = true,
+    replace_keycodes = true,
+    silent = true,
+    desc = "Accept completion",
+})
+
+vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, {
+    silent = true,
+    desc = "Trigger completion",
+})

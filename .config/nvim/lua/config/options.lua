@@ -42,4 +42,11 @@ opt.splitright = true
 opt.splitbelow = true
 opt.confirm = true
 opt.updatetime = 250
+opt.completeopt = { "menu", "menuone", "noselect", "popup" }
+
+-- Keep floating windows and completion menus in the same ASCII visual style
+-- as the editor separators above.
+local ascii_border = "+,-,+,|,+,-,+,|"
+opt.winborder = ascii_border
+opt.pumborder = ascii_border
 opt.timeoutlen = 300
