@@ -4,6 +4,10 @@ vim.pack.add({
         name = "solarized",
     },
     {
+        src = "https://github.com/ellisonleao/gruvbox.nvim",
+        name = "gruvbox",
+    },
+    {
         src = "https://github.com/nvim-tree/nvim-tree.lua",
         name = "nvim-tree",
     },
@@ -85,6 +89,8 @@ require("nvim-tree").setup({
     },
 })
 
+local telescope_actions = require("telescope.actions")
+
 require("telescope").setup({
     defaults = {
         prompt_prefix = ">> ",
@@ -105,9 +111,34 @@ require("telescope").setup({
             "+",
             "+",
         },
+        mappings = {
+            i = {
+                ["<C-j>"] = telescope_actions.move_selection_next,
+                ["<C-k>"] = telescope_actions.move_selection_previous,
+            },
+            n = {
+                ["j"] = telescope_actions.move_selection_next,
+                ["k"] = telescope_actions.move_selection_previous,
+            },
+        },
     },
 })
 require("gitsigns").setup({
+    signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "-" },
+        topdelete = { text = "^" },
+        changedelete = { text = "~" },
+        untracked = { text = "?" },
+    },
+    signs_staged = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "-" },
+        topdelete = { text = "^" },
+        changedelete = { text = "~" },
+    },
     signcolumn = true,
     numhl = true,
     linehl = false,
@@ -117,6 +148,11 @@ require("mini.pairs").setup({
     mappings = {
         ["<"] = { action = "open", pair = "<>" },
         [">"] = { action = "close", pair = "<>" },
+    },
+})
+require("mini.comment").setup({
+    mappings = {
+        comment_visual = "<leader>c",
     },
 })
 -- local which_key = require("which-key")

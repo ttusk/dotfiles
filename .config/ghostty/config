@@ -1,6 +1,8 @@
-theme = light:iTerm2 Solarized Light, dark:iTerm2 Solarized Dark
+theme = light:iTerm2 Solarized Light, dark:Gruvbox Dark
 cursor-style = block
 cursor-style-blink = false
+
+macos-option-as-alt = true
 
 font-family = "Monaco Nerd Font Mono"
 shell-integration-features = ssh-terminfo,ssh-env,no-cursor

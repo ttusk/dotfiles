@@ -14,7 +14,13 @@ end
 
 opt.termguicolors = true
 
-opt.background = system_background()
+local background = system_background()
+opt.background = background
 
-require("solarized").setup({})
-vim.cmd.colorscheme("solarized")
+if background == "dark" then
+    require("gruvbox").setup({})
+    vim.cmd.colorscheme("gruvbox")
+else
+    require("solarized").setup({})
+    vim.cmd.colorscheme("solarized")
+end

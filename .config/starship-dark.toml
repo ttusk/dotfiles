@@ -14,21 +14,21 @@ $python\
 $character"""
 
 [username]
-style_user = "#d33682"
-style_root = "bold #dc322f"
+style_user = "#d3869b"
+style_root = "bold #fb4934"
 format = "[$user]($style) · "
 show_always = true
 aliases = { "luizgustavo" = "(*ˊᵕˋ*)" }
 
 [hostname]
-style = "#839496"
+style = "#928374"
 disabled = true
 format = "[$hostname]($style) "
 ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "#268bd2"
+style = "#83a598"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -39,16 +39,16 @@ disabled = true
 command = "git branch --show-current"
 when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
 format = "[:: $output]($style)"
-style = "#839496"
+style = "#928374"
 shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "#839496"
+style = "#928374"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bold #cb4b16) ($ahead_behind$stashed)]($style)"
-style = "#2aa198"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bold #fe8019) ($ahead_behind$stashed)]($style)"
+style = "#8ec07c"
 conflicted = "​"
 untracked = "​"
 modified = "​"
@@ -59,20 +59,20 @@ stashed = "≡"
 
 [cmd_duration]
 format = "[$duration]($style) "
-style = "#b58900"
+style = "#fabd2f"
 
 [haskell]
 symbol = "λ"
-style = "#6c71c4"
+style = "#d3869b"
 format = '([$symbol $version]($style) )'
 
 [python]
 format = "[$virtualenv]($style) "
-style = "#839496"
+style = "#928374"
 detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](#93a1a1)"
-error_symbol = "[λ](#dc322f)"
-vimcmd_symbol = "[λ](#859900)"
+success_symbol = "[λ](#b8bb26)"
+error_symbol = "[λ](#fb4934)"
+vimcmd_symbol = "[λ](#8ec07c)"

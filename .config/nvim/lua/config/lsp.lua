@@ -77,12 +77,18 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-completion", { clear = true }),
     callback = function(args)
-        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client or client:is_stopped() then
+            return
+        end
 
         if client:supports_method("textDocument/completion") then
             -- Trigger completion while typing words, after `#`, and after
             -- the server's own punctuation triggers.
-            local provider = assert(client.server_capabilities.completionProvider)
+            local provider = client.server_capabilities.completionProvider
+            if not provider then
+                return
+            end
             local trigger_characters = { ["#"] = true }
             for _, character in ipairs(provider.triggerCharacters or {}) do
                 trigger_characters[character] = true
@@ -92,9 +98,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end
             provider.triggerCharacters = vim.tbl_keys(trigger_characters)
 
-            vim.lsp.completion.enable(true, client.id, args.buf, {
-                autotrigger = true,
-            })
+            vim.schedule(function()
+                local current = vim.lsp.get_client_by_id(args.data.client_id)
+                if not current or current:is_stopped() then
+                    return
+                end
+
+                pcall(vim.lsp.completion.enable, true, current.id, args.buf, {
+                    autotrigger = true,
+                })
+            end)
         end
     end,
 })

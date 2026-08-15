@@ -1,17 +1,19 @@
-providers:
-  webSearchOrder:
+providers: 
+  webSearchOrder: 
     - codex
-modelRoles:
+modelRoles: 
   default: openai-codex/gpt-5.6-luna
 symbolPreset: ascii
-theme:
+theme: 
   light: light-solarized
-  dark: dark-solarized
+  dark: dark-gruvbox
 setupVersion: 1
-statusLine:
+statusLine: 
   separator: ascii
   preset: ascii
   transparent: true
-dev:
+dev: 
   autoqaConsent: granted
 textVerbosity: low
+tier: 
+  openai: none

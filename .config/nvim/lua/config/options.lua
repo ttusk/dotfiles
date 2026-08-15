@@ -50,3 +50,44 @@ local ascii_border = "+,-,+,|,+,-,+,|"
 opt.winborder = ascii_border
 opt.pumborder = ascii_border
 opt.timeoutlen = 300
+
+opt.autoread = true
+
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+    group = vim.api.nvim_create_augroup("auto-checktime", { clear = true }),
+    command = "checktime",
+})
+
+local function autosave_buffer(args)
+    local bufnr = args.buf
+    local buffer = vim.bo[bufnr]
+    if buffer.buftype ~= "" or buffer.readonly or not buffer.modifiable or not buffer.modified then
+        return
+    end
+    if vim.api.nvim_buf_get_name(bufnr) == "" then
+        return
+    end
+
+    vim.api.nvim_buf_call(bufnr, function()
+        vim.cmd("silent update")
+    end)
+end
+
+vim.api.nvim_create_autocmd({
+    "BufLeave",
+    "FocusLost",
+    "InsertLeave",
+    "TextChanged",
+    "TextChangedI",
+}, {
+    callback = autosave_buffer,
+    group = vim.api.nvim_create_augroup("auto-save", { clear = true }),
+})
+
+if vim.g.auto_checktime_timer then
+    vim.fn.timer_stop(vim.g.auto_checktime_timer)
+end
+
+vim.g.auto_checktime_timer = vim.fn.timer_start(500, function()
+    vim.cmd("checktime")
+end, { ["repeat"] = -1 })

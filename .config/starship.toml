@@ -16,7 +16,7 @@ $character"""
 [username]
 style_user = "#d33682"
 style_root = "bold #dc322f"
-format = "[$user]($style) · "
+format = "[$user]($style) | "
 show_always = true
 aliases = { "luizgustavo" = "(*ˊᵕˋ*)" }
 
@@ -49,14 +49,13 @@ style = "#93a1a1"
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bold #cb4b16) ($ahead_behind$stashed)]($style)"
 style = "#2aa198"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
-
+conflicted = ""
+untracked = ""
+modified = ""
+staged = ""
+renamed = ""
+deleted = ""
+stashed = "="
 [cmd_duration]
 format = "[$duration]($style) "
 style = "#b58900"

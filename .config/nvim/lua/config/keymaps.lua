@@ -33,15 +33,52 @@ end, "Show diagnostic details")
 map("gd", vim.lsp.buf.definition, "Go to definition")
 map("gI", vim.lsp.buf.implementation, "Go to implementation")
 map("gr", vim.lsp.buf.references, "Find references")
+map("grn", vim.lsp.buf.rename, "Rename symbol across project")
+
+map("<leader>fm", function()
+    vim.lsp.buf.format({ async = true })
+end, "Format buffer")
+map("<leader>lr", "<cmd>lsp restart<cr>", "Restart LSP")
 
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
+vim.keymap.set("n", "<A-j>", "<cmd>move .+1<cr>==", {
+    silent = true,
+    desc = "Move line down",
+})
+vim.keymap.set("n", "<A-k>", "<cmd>move .-2<cr>==", {
+    silent = true,
+    desc = "Move line up",
+})
+vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv=gv", {
+    silent = true,
+    desc = "Move selection down",
+})
+vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv=gv", {
+    silent = true,
+    desc = "Move selection up",
+})
 
 local function completion_navigation(forward)
     if vim.fn.pumvisible() == 1 then
         return forward and "<C-n>" or "<C-p>"
     end
+
+    local direction = forward and 1 or -1
+    if vim.snippet.active({ direction = direction }) then
+        vim.snippet.jump(direction)
+        return ""
+    end
+
     return forward and "<Tab>" or "<S-Tab>"
 end
+
+vim.keymap.set({ "i", "s" }, "<Tab>", function()
+    return completion_navigation(true)
+end, { expr = true, replace_keycodes = true, silent = true, desc = "Next completion or snippet placeholder" })
+
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+    return completion_navigation(false)
+end, { expr = true, replace_keycodes = true, silent = true, desc = "Previous completion or snippet placeholder" })
 
 local function accept_completion()
     local completion = vim.fn.complete_info({ "selected" })
@@ -50,14 +87,6 @@ local function accept_completion()
     end
     return "<CR>"
 end
-
-vim.keymap.set("i", "<Tab>", function()
-    return completion_navigation(true)
-end, { expr = true, replace_keycodes = true, silent = true, desc = "Next completion" })
-
-vim.keymap.set("i", "<S-Tab>", function()
-    return completion_navigation(false)
-end, { expr = true, replace_keycodes = true, silent = true, desc = "Previous completion" })
 
 vim.keymap.set("i", "<CR>", accept_completion, {
     expr = true,
