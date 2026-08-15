@@ -3,6 +3,7 @@ providers:
     - codex
 modelRoles: 
   default: openai-codex/gpt-5.6-luna
+  plan: openai-codex/gpt-5.6-sol:high
 symbolPreset: ascii
 theme: 
   light: light-solarized
