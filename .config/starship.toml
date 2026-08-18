@@ -1,16 +1,11 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-$username\
-$hostname\
 $directory\
 ${custom.git_branch_outside_home}\
-$git_state\
 $git_status\
 $cmd_duration\
 $line_break\
-$haskell\
-$python\
 $character"""
 
 [username]
@@ -18,7 +13,6 @@ style_user = "#d33682"
 style_root = "bold #dc322f"
 format = "[$user]($style) | "
 show_always = true
-aliases = { "luizgustavo" = "(*ˊᵕˋ*)" }
 
 [hostname]
 style = "#93a1a1"
@@ -38,7 +32,7 @@ disabled = true
 [custom.git_branch_outside_home]
 command = "git branch --show-current"
 when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
-format = "[:: $output]($style)"
+format = " :: [git:$output]($style)"
 style = "#93a1a1"
 shell = ["zsh", "--no-rcs"]
 
@@ -47,21 +41,21 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "#93a1a1"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bold #cb4b16) ($ahead_behind$stashed)]($style)"
+format = " $all_status$ahead_behind"
 style = "#2aa198"
-conflicted = ""
-untracked = ""
-modified = ""
-staged = ""
-renamed = ""
-deleted = ""
-stashed = "="
-ahead = ">"
-behind = "<"
+conflicted = "!"
+untracked = "?"
+modified = "*"
+staged = "+"
+renamed = ">"
+deleted = "x"
+stashed = "$"
+ahead = "^"
+behind = "v"
 diverged = "<>"
 up_to_date = ""
 [cmd_duration]
-format = "[$duration]($style) "
+format = " took:$duration "
 style = "#b58900"
 
 [haskell]
