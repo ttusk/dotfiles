@@ -73,7 +73,22 @@ Based on the content, pick the right location:
 
 If ambiguous, ask the user. Default to `inbox/`.
 
-Never create notes inside `credenciais/`, `curriculo/exports/`, `tmp/`, `Leif/.backups/`, or `.obsidian/plugin-backups/`. `credenciais/` is private; the other paths are generated or maintenance data.
+Never create notes inside `credenciais/`, `curriculo/exports/`, `tmp/`, or `.obsidian/plugin-backups/`. `credenciais/` is private; the other paths are generated or maintenance data.
+
+## Audio transcriptions
+
+For audio from a class, lecture, course, or university lesson, save the transcription under `uni/`.
+
+- If the subject or area is known, use `uni/{area}/aulas/{nn}-{slug}/transcricao.md` and place the corresponding summary in the same folder as `resumo.md`.
+- If the area is ambiguous, use `uni/aulas/{nn}-{slug}/transcricao.md` and place the corresponding summary in the same folder as `resumo.md`.
+- Keep an `index.md` in the area folder with wikilinks to each aula.
+- Keep the original audio where it already exists. Do not copy large audio files into the vault unless the user explicitly asks.
+- Use `/Users/luizgustavo/.hermes/tools/bin/mlx-transcribe-pt` for local transcription with MLX Whisper and `mlx-community/whisper-large-v3-turbo`.
+- Set the language to Portuguese and preserve timestamps when they help locate passages.
+- Add YAML frontmatter with `type: transcription`, `source`, `language: pt`, `model`, and `created`.
+- Keep the raw transcription intact, then add a concise `## Resumo` and `## Tópicos` section when the user asks for organization or study material.
+- Link the transcription to related university notes with `[[wikilinks]]` when those notes exist.
+- Do not turn an audio transcription into flashcards unless the user explicitly asks.
 
 ## Slug
 

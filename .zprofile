@@ -7,3 +7,6 @@ export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 
 # Added by Obsidian
 [ -d "/Applications/Obsidian.app" ] && export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"

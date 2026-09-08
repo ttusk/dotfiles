@@ -29,16 +29,26 @@ map("<leader>ml", "<cmd>MarkdownLint<cr>", "Lint Markdown buffer")
 -- end, "Show keymaps")
 map("<leader>d", function()
     vim.diagnostic.open_float(0, { scope = "line" })
-end, "Show diagnostic details")
+end, "Show line diagnostics")
+map("<leader>dd", function()
+    telescope.diagnostics({ bufnr = 0 })
+end, "Show buffer diagnostics")
+map("<leader>dw", telescope.diagnostics, "Show workspace diagnostics")
 map("gd", vim.lsp.buf.definition, "Go to definition")
+map("K", vim.lsp.buf.hover, "Show method signature and documentation")
+map("<leader>pd", telescope.lsp_definitions, "Peek method definition")
 map("gI", vim.lsp.buf.implementation, "Go to implementation")
 map("gr", vim.lsp.buf.references, "Find references")
 map("grn", vim.lsp.buf.rename, "Rename symbol across project")
 
 map("<leader>fm", function()
-    vim.lsp.buf.format({ async = true })
+    require("conform").format({ async = true, lsp_format = "fallback" })
 end, "Format buffer")
 map("<leader>lr", "<cmd>lsp restart<cr>", "Restart LSP")
+map("<leader>rr", function()
+    local config = vim.fn.fnameescape(vim.fn.stdpath("config") .. "/init.lua")
+    vim.cmd("source " .. config)
+end, "Reload Neovim config")
 
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
 vim.keymap.set("n", "<A-j>", "<cmd>move .+1<cr>==", {
@@ -99,3 +109,16 @@ vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, {
     silent = true,
     desc = "Trigger completion",
 })
+vim.keymap.set("i", "<C-l>", 'copilot#Accept("<CR>")', {
+    expr = true,
+    replace_keycodes = false,
+    silent = true,
+    desc = "Accept Copilot suggestion",
+})
+map("<leader>ct", function()
+    if vim.g.copilot_enabled == 0 then
+        vim.cmd("Copilot enable")
+    else
+        vim.cmd("Copilot disable")
+    end
+end, "Toggle Copilot suggestions")

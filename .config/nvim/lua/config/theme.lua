@@ -18,8 +18,7 @@ local background = system_background()
 opt.background = background
 
 if background == "dark" then
-    require("gruvbox").setup({})
-    vim.cmd.colorscheme("gruvbox")
+    vim.cmd.colorscheme("doom-one")
 else
     require("solarized").setup({})
     vim.cmd.colorscheme("solarized")

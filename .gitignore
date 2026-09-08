@@ -26,3 +26,9 @@
 .codex/*
 !.codex/skills/
 !.codex/skills/**
+
+# Oh My Pi custom themes
+!.omp/
+!.omp/agent/
+!.omp/agent/themes/
+!.omp/agent/themes/**

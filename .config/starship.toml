@@ -70,6 +70,6 @@ detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](#586e75)"
-error_symbol = "[λ](#dc322f)"
-vimcmd_symbol = "[λ](#859900)"
+success_symbol = "[λ](bold #586e75)"
+error_symbol = "[λ](bold #dc322f)"
+vimcmd_symbol = "[λ](bold #859900)"

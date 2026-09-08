@@ -1,6 +1,6 @@
 ---
 name: vault
-description: Search and retrieve notes from Luiz Gustavo's Obsidian vault at `/Users/luizgustavo/git/vault`, using its current home page, inbox, study, career, and Leif structures. Use when the user wants to find notes, recover study material for concursos, inspect existing flashcards, review faculdade or TCC notes, pull context for curriculum writing, or load personal planning notes. Trigger on phrases like "check my notes", "what do I have on", "find in vault", "search notes", "load notes about", "bring me everything about", "briefing for", "o que eu tenho sobre", "meus flashcards", "anotações da faculdade", "currículo", and "concursos".
+description: Search and retrieve notes from Luiz Gustavo's Obsidian vault at `/Users/luizgustavo/git/vault`, using its current home page, inbox, study, and career structures. Use when the user wants to find notes, recover study material for concursos, inspect existing flashcards, review faculdade or TCC notes, pull context for curriculum writing, or load personal planning notes. Trigger on phrases like "check my notes", "what do I have on", "find in vault", "search notes", "load notes about", "bring me everything about", "briefing for", "o que eu tenho sobre", "meus flashcards", "anotações da faculdade", "currículo", and "concursos".
 ---
 
 # Vault
@@ -14,7 +14,6 @@ Start broad navigation at `index.md`. Then prioritize these areas based on the u
 - `inbox/`: uncategorized captures. Move or refine only when the user asks to organize them.
 - `flashcards/`: spaced-repetition cards, including subjects like `portugues/`
 - `concursos/`: the manual, canonical cadernos de erros. Each concurso has its own folder with an `index.md` and `caderno-de-erros/` subject files.
-- `Leif/concursos/`: active Leif operational study plans. They use the plugin's Markdown schema and are separate from `concursos/`.
 - `uni/`: faculdade notes, including TCC material
 - `curriculo/`: master record, experience notes, skills, and editable CV sources in `curriculo/versoes/`. Never treat `curriculo/exports/` as source material.
 - `vida/`: personal planning and operational notes
@@ -28,7 +27,7 @@ Use the real folder names exactly as they exist. They are lowercase in this vaul
 
 Never search, quote, summarize, link, edit, or index `credenciais/` unless the user explicitly names a file there and requests that action. It may contain secrets.
 
-Ignore generated or application-maintenance paths: `curriculo/exports/`, `tmp/`, `Leif/.backups/`, `.obsidian/plugin-backups/`, `.qmd/`, `.obsidian/`, and `.git/`. Do not use their contents as note sources.
+Ignore generated or application-maintenance paths: `curriculo/exports/`, `tmp/`, `.obsidian/plugin-backups/`, `.qmd/`, `.obsidian/`, and `.git/`. Do not use their contents as note sources.
 
 ## Search workflow
 
@@ -46,7 +45,7 @@ qmd vsearch -c vault "search term"
 
 Use `--json` or `--files` when structured output helps. Use `-n 10` when the search is broad.
 
-Use qmd only when the existing `vault` collection is known not to index `credenciais/` or generated paths. If that is not verified, use targeted `rg` searches instead. Do not create a root-level collection blindly, because it can index credentials.
+The existing `vault` collection is verified safe for routine use: it indexes only `**/*.md` under `/Users/luizgustavo/git/vault` and excludes `credenciais/**`, `.obsidian/**`, `.git/**`, `tmp/**`, `.qmd/**`, and `curriculo/exports/**`. Use qmd as the primary search method for vault retrieval. If the collection configuration changes or qmd fails, verify it again before falling back to targeted searches. Do not create a root-level collection blindly, because it can index credentials.
 
 ### 2. Use snippets before reading whole files
 
@@ -68,7 +67,7 @@ rg -l "exact phrase" /Users/luizgustavo/git/vault/concursos --type md
 rg -l "exact phrase" /Users/luizgustavo/git/vault/uni --type md
 rg -l "exact phrase" /Users/luizgustavo/git/vault/curriculo --type md
 rg -l "exact phrase" /Users/luizgustavo/git/vault/vida --type md
-find /Users/luizgustavo/git/vault/{inbox,flashcards,concursos,Leif/concursos,uni,curriculo,vida,learning,projects,blog,references} -name "*slug*"
+find /Users/luizgustavo/git/vault/{inbox,flashcards,concursos,uni,curriculo,vida,learning,projects,blog,references} -name "*slug*"
 ```
 
 Do not run `rg` just to confirm what qmd already found.
@@ -78,7 +77,6 @@ Do not run `rg` just to confirm what qmd already found.
 Pick the likely area first, then widen only if needed.
 
 - Concurso or revisão: check `concursos/{concurso}/index.md` first for edital info, then `concursos/{concurso}/caderno-de-erros/` for subject material. Also search `flashcards/` for existing cards on the topic.
-- Active Leif cycle or status: read `Leif/concursos/{concurso}/concurso.md`, then the linked `materias/`, `recursos/`, and `assuntos/` notes. Do not use `Leif/.backups/` or migration receipts as sources.
 - Faculdade, disciplina, TCC: search `uni/` first
 - Currículo, experiência, estágio, projetos: search `curriculo/` first
 - Organização pessoal, rotinas, pendências: search `vida/` first
@@ -98,7 +96,7 @@ concursos/
 
 The `index.md` holds everything needed to operate the concurso: deadlines, cargo details, how to enroll, and the full list of subject files to study. Subject files live inside `caderno-de-erros/` with `## Assuntos mapeados` and `###` topic headings. No cross-links between different concursos.
 
-Do not merge or move manual cadernos and Leif plans unless the user explicitly requests a migration. If the user asks whether a topic already has a flashcard, inspect `flashcards/` before suggesting new material.
+If the user asks whether a topic already has a flashcard, inspect `flashcards/` before suggesting new material.
 
 ## Output modes
 

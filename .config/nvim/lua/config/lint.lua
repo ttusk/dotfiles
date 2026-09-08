@@ -1,17 +1,19 @@
 local lint = require("lint")
 
 lint.linters_by_ft = {
+    javascript = { "eslint" },
+    javascriptreact = { "eslint" },
+    typescript = { "eslint" },
+    typescriptreact = { "eslint" },
     markdown = { "markdownlint-cli2" },
 }
 
-local group = vim.api.nvim_create_augroup("markdown-lint", { clear = true })
+local group = vim.api.nvim_create_augroup("lint", { clear = true })
 
 vim.api.nvim_create_autocmd("BufWritePost", {
     group = group,
     callback = function(args)
-        if vim.bo[args.buf].filetype == "markdown" then
-            lint.try_lint(nil, { bufnr = args.buf })
-        end
+        lint.try_lint(nil, { bufnr = args.buf })
     end,
 })
 

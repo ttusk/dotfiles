@@ -60,7 +60,7 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 
 # 4. Command feedback
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#586e75'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5b6268'
 if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
@@ -100,6 +100,7 @@ alias timer='timr-tui'
 alias ..='cd ..'
 alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias dots='dotfiles'
+alias fetch='fastfetch'
 
 mkcd() {
   if [ $# -ne 1 ]; then
@@ -127,3 +128,14 @@ force() {
 vault_qmd() {
   (cd "$HOME/git/vault" && qmd "$@")
 }
+
+# pnpm
+export PNPM_HOME="/Users/luizgustavo/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Added by cua-driver-rs installer — see https://github.com/trycua/cua
+export PATH="/Users/luizgustavo/.local/bin:$PATH"

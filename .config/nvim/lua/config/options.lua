@@ -53,41 +53,56 @@ opt.timeoutlen = 300
 
 opt.autoread = true
 
+local external_file_group = vim.api.nvim_create_augroup("external-file-sync", { clear = true })
+
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-    group = vim.api.nvim_create_augroup("auto-checktime", { clear = true }),
+    group = external_file_group,
     command = "checktime",
 })
 
-local function autosave_buffer(args)
-    local bufnr = args.buf
-    local buffer = vim.bo[bufnr]
-    if buffer.buftype ~= "" or buffer.readonly or not buffer.modifiable or not buffer.modified then
-        return
-    end
-    if vim.api.nvim_buf_get_name(bufnr) == "" then
-        return
-    end
+vim.api.nvim_create_autocmd("FileChangedShell", {
+    group = external_file_group,
+    callback = function(args)
+        local bufnr = args.buf
+        local path = vim.api.nvim_buf_get_name(bufnr)
+        if path == "" then
+            return
+        end
 
-    vim.api.nvim_buf_call(bufnr, function()
-        vim.cmd("silent update")
-    end)
-end
+        if vim.fn.filereadable(path) == 0 then
+            vim.api.nvim_set_vvar("fcs_choice", "")
+            if vim.b[bufnr].external_file_deleted then
+                return
+            end
 
-vim.api.nvim_create_autocmd({
-    "BufLeave",
-    "FocusLost",
-    "InsertLeave",
-    "TextChanged",
-    "TextChangedI",
-}, {
-    callback = autosave_buffer,
-    group = vim.api.nvim_create_augroup("auto-save", { clear = true }),
+            vim.b[bufnr].external_file_deleted = true
+            vim.bo[bufnr].modified = true
+            vim.notify(
+                string.format("File deleted externally; buffer kept: %s", vim.fn.fnamemodify(path, ":~")),
+                vim.log.levels.WARN
+            )
+            return
+        end
+
+        if vim.v.fcs_reason == "conflict" then
+            vim.api.nvim_set_vvar("fcs_choice", "ask")
+            vim.notify(
+                string.format("External change conflicts with local edits: %s", vim.fn.fnamemodify(path, ":~")),
+                vim.log.levels.WARN
+            )
+        else
+            vim.api.nvim_set_vvar("fcs_choice", "edit")
+        end
+    end,
 })
 
-if vim.g.auto_checktime_timer then
-    vim.fn.timer_stop(vim.g.auto_checktime_timer)
-end
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = external_file_group,
+    callback = function(args)
+        vim.b[args.buf].external_file_deleted = nil
+    end,
+})
 
-vim.g.auto_checktime_timer = vim.fn.timer_start(500, function()
-    vim.cmd("checktime")
-end, { ["repeat"] = -1 })
+opt.laststatus = 2
+opt.showmode = false
+opt.showcmd = false
