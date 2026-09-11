@@ -1,6 +1,4 @@
 *
-**/.DS_Store
-**/__pycache__/
 !.gitignore
 !install.sh
 
@@ -34,3 +32,9 @@
 !.omp/agent/
 !.omp/agent/themes/
 !.omp/agent/themes/**
+
+# Generated files inside tracked trees
+**/.DS_Store
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
