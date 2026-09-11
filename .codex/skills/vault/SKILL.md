@@ -17,7 +17,6 @@ Start broad navigation at `index.md`. Then prioritize these areas based on the u
 - `uni/`: faculdade notes, including TCC material
 - `curriculo/`: master record, experience notes, skills, and editable CV sources in `curriculo/versoes/`. Never treat `curriculo/exports/` as source material.
 - `vida/`: personal planning and operational notes
-- `learning/til/`: legacy short notes. Search existing entries when useful, but do not create new study notes there by default.
 - `projects/`, `blog/`, and `references/`: projects, writing, and reference material
 - `templates/`: support material only when directly relevant
 
@@ -80,7 +79,7 @@ Pick the likely area first, then widen only if needed.
 - Faculdade, disciplina, TCC: search `uni/` first. For TCC material, keep the synthesis inside `uni/tcc/` and extend the relevant canonical note instead of creating a generic learning note.
 - Currículo, experiência, estágio, projetos: search `curriculo/` first
 - Organização pessoal, rotinas, pendências: search `vida/` first
-- Broad recall or synthesis: search by the knowledge's future utility and choose its canonical area; do not default to `learning/til/`
+- Broad recall or synthesis: search by the knowledge's future utility and choose its canonical area; do not create a generic learning repository based only on the date learned.
 
 For new study material, classify the scope before choosing a filename. “Aprendi hoje” is not a destination.
 

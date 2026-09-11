@@ -73,7 +73,7 @@ For example, graph theory studied for the TCC belongs under `uni/tcc/`, normally
 | Currículo or career material | `curriculo/{slug}.md` | note |
 | Personal planning or life admin | `vida/{slug}.md` | note |
 
-`learning/til/` is a legacy area. Do not create new notes there unless the user explicitly requests that path. Existing TILs may be searched and consolidated into the canonical area when the user asks.
+`learning/til/` foi aposentado. Não crie novas notas ali. Se um TIL legado aparecer em uma cópia antiga do vault, consolide seu conteúdo na área canônica somente quando o usuário pedir.
 
 If ambiguous, ask the user. Default to `inbox/`.
 

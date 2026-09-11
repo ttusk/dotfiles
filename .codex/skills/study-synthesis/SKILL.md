@@ -49,7 +49,7 @@ Não resuma parágrafo por parágrafo. Extraia somente o que muda a compreensão
 
 O vault fica em `/Users/luizgustavo/git/vault`. Para localizar contexto, use `qmd` somente quando a coleção `vault` estiver disponível e continuar limitada a Markdown seguro. Comece por `index.md`, pesquise o termo e seus sinônimos e leia a nota candidata antes de escolher o destino. Nunca use `credenciais/`, `curriculo/exports/`, `tmp/`, `.obsidian/`, `.qmd/` ou `.git/` como fonte.
 
-A regra principal é o **escopo de utilidade**, não a data da leitura. O fato de ter aprendido algo hoje não cria um TIL. Nesta skill, não crie novas notas em `learning/til/`. Trate os arquivos que já existem ali como legado: leia-os quando ajudarem e só migre seu conteúdo quando o usuário pedir.
+A regra principal é o **escopo de utilidade**, não a data da leitura. O fato de ter aprendido algo hoje não cria um TIL. Nesta skill, não crie novas notas em `learning/til/`: essa área foi aposentada. Se um arquivo legado aparecer em uma cópia antiga do vault, só o migre para o escopo canônico quando o usuário pedir.
 
 Prefira, nesta ordem:
 
