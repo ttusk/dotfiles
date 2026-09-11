@@ -1,6 +1,6 @@
 ---
 name: note
-description: Capture an insight, idea, study note, flashcard, or reference into Luiz Gustavo's Obsidian vault at `/Users/luizgustavo/git/vault`. Use when the user wants to save something for later, jot down an idea, record a TIL, start a blog draft, create a flashcard, save concurso material, save faculdade notes, store curriculum material, or add anything to the vault. Trigger on phrases like "save this", "note this down", "I had an idea", "TIL", "remember this", "add to vault", "create a flashcard", "salva isso", and "anota isso".
+description: Capture an insight, study note, flashcard, reference, or other material in Luiz Gustavo's Obsidian vault at `/Users/luizgustavo/git/vault`. Use when the user wants to save something for later, jot down an idea, remember something, add a study note, create a flashcard, save concurso material, save faculdade notes, store curriculum material, or add anything to the vault. Choose study destinations by future utility, not by the date the material was learned.
 ---
 
 # Note
@@ -54,14 +54,16 @@ All notes must follow the user's voice. Write like a human, not like an AI.
 
 ## How to decide where it goes
 
-Based on the content, pick the right location:
+Choose by the note's future utility, not by when the material was learned. If a concept belongs to a current course, project, TCC or concurso, search that scope and update its canonical note before creating a new file.
+
+For example, graph theory studied for the TCC belongs under `uni/tcc/`, normally in `fundamentacao-teorica.md` or another existing concept note in that folder. It does not belong in a generic learning repository.
 
 | Content | Path | Template |
 |---------|------|----------|
 | Quick thought, unsorted | `inbox/{slug}.md` | note |
 | Blog post idea (one-liner) | `inbox/ideias-de-conteudo.md` | - |
 | Blog draft (outline ready) | `blog/drafts/{slug}.md` | blog-draft |
-| Something learned today | `learning/til/{slug}.md` | til |
+| Studied concept with a known scope | Existing canonical note under that scope | note or subject template |
 | Project-specific note | `projects/{project}/{slug}.md` | note |
 | Useful link or tool | `references/{slug}.md` | note |
 | Flashcard | `flashcards/{subject}/{slug}.md` | flashcard |
@@ -71,9 +73,16 @@ Based on the content, pick the right location:
 | Currículo or career material | `curriculo/{slug}.md` | note |
 | Personal planning or life admin | `vida/{slug}.md` | note |
 
+`learning/til/` is a legacy area. Do not create new notes there unless the user explicitly requests that path. Existing TILs may be searched and consolidated into the canonical area when the user asks.
+
 If ambiguous, ask the user. Default to `inbox/`.
 
 Never create notes inside `credenciais/`, `curriculo/exports/`, `tmp/`, or `.obsidian/plugin-backups/`. `credenciais/` is private; the other paths are generated or maintenance data.
+## Steps
+
+1. Understand what the user wants to capture
+2. Pick the right folder based on future utility and canonical scope, not on the date learned
+3. Search the vault for related notes with `qmd search -c vault "topic"` when available
 
 ## Audio transcriptions
 
@@ -238,7 +247,7 @@ Avoid these failure modes:
 ## Steps
 
 1. Understand what the user wants to capture
-2. Pick the right folder based on content type
+2. Pick the right folder based on future utility and canonical scope, not on the date learned
 3. Search the vault for related notes with `qmd search -c vault "topic"` when available
 4. If `Obsidian CLI` is available and the task benefits from vault-aware operations, use it to create, append, prepend, move, rename, or open the note
 5. Otherwise write the note directly with frontmatter, content, and links to related notes
