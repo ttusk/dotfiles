@@ -18,7 +18,7 @@ local background = system_background()
 opt.background = background
 
 if background == "dark" then
-    vim.cmd.colorscheme("doom-one")
+    vim.cmd.colorscheme("sunbather")
 else
     require("solarized").setup({})
     vim.cmd.colorscheme("solarized")

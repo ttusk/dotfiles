@@ -15,6 +15,8 @@
 .config/*
 !.config/ghostty/
 !.config/ghostty/config
+!.config/ghostty/themes/
+!.config/ghostty/themes/**
 !.config/nvim/
 !.config/nvim/**
 !.config/starship.toml

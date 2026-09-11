@@ -1,8 +1,8 @@
 vim.g.copilot_no_tab_map = true
 vim.pack.add({
     {
-        src = "https://github.com/NTBBloodbath/doom-one.nvim",
-        name = "doom-one",
+        src = "https://github.com/nikolvs/vim-sunbather",
+        name = "sunbather",
     },
     {
         src = "https://github.com/maxmx03/solarized.nvim",
@@ -59,10 +59,6 @@ vim.pack.add({
     {
         src = "https://github.com/3rd/image.nvim",
         name = "image",
-    },
-    {
-        src = "https://github.com/mfussenegger/nvim-jdtls",
-        name = "nvim-jdtls",
     },
 })
 
@@ -221,7 +217,6 @@ local treesitter_filetypes = {
     "bash",
     "css",
     "html",
-    "java",
     "javascript",
     "json",
     "lua",
@@ -241,7 +236,6 @@ require("nvim-treesitter").install({
     "bash",
     "css",
     "html",
-    "java",
     "javascript",
     "json",
     "lua",
@@ -272,7 +266,6 @@ require("conform").setup({
         json = { "prettier" },
         jsonc = { "prettier" },
         markdown = { "prettier" },
-        java = { "google-java-format" },
     },
 })
 require("image").setup({

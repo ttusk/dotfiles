@@ -1,11 +1,6 @@
 # 1. Base environment
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -60,7 +55,7 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 
 # 4. Command feedback
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5b6268'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#767676'
 if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
@@ -73,12 +68,15 @@ fi
 # 5. Starship prompt
 __set_starship_theme() {
   local config="$HOME/.config/starship.toml"
+  local autosuggest_style='fg=#93a1a1'
 
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
     config="$HOME/.config/starship-dark.toml"
+    autosuggest_style='fg=#767676'
   fi
 
   export STARSHIP_CONFIG="$config"
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$autosuggest_style"
 }
 
 autoload -Uz add-zsh-hook
@@ -129,13 +127,16 @@ vault_qmd() {
   (cd "$HOME/git/vault" && qmd "$@")
 }
 
+
+# Keep Homebrew ahead of macOS system tools on Apple Silicon.
+if [[ -d /opt/homebrew/bin ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 # pnpm
-export PNPM_HOME="/Users/luizgustavo/Library/pnpm"
+export PNPM_HOME='/Users/luizgustavo/Library/pnpm'
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
-
-# Added by cua-driver-rs installer — see https://github.com/trycua/cua
-export PATH="/Users/luizgustavo/.local/bin:$PATH"

@@ -8,10 +8,6 @@
       "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
       "src": "https://github.com/github/copilot.vim"
     },
-    "doom-one": {
-      "rev": "beae92173315c7282f6897e666cfd67fbf0f3ac9",
-      "src": "https://github.com/NTBBloodbath/doom-one.nvim"
-    },
     "gitsigns": {
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
@@ -31,10 +27,6 @@
     "mini": {
       "rev": "629bf6792187e11b4829411c1648f86f28df3963",
       "src": "https://github.com/echasnovski/mini.nvim"
-    },
-    "nvim-jdtls": {
-      "rev": "6e9d953f0b82bccdb834cfde0e893f3119c22592",
-      "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lint": {
       "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",
@@ -59,6 +51,10 @@
     "solarized": {
       "rev": "a8085e29883ddcfb39bd46197eb32ef00df05368",
       "src": "https://github.com/maxmx03/solarized.nvim"
+    },
+    "sunbather": {
+      "rev": "64506a07a735ad92752e0e9935c4fc304f0327a4",
+      "src": "https://github.com/nikolvs/vim-sunbather"
     },
     "telescope": {
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",

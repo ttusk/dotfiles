@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+-- Expose the current file name to terminal and tmux status bars.
+opt.title = true
+opt.titlestring = "%t"
+
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true

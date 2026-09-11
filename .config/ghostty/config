@@ -1,8 +1,9 @@
-theme = light:iTerm2 Solarized Light - Monaco,dark:Doom One
-font-family = "SF Mono"
+theme = light:iTerm2 Solarized Light,dark:sunbather-dark
+font-family = "Monaco Nerd Font Mono"
 cursor-style = block
 cursor-style-blink = false
 
 macos-option-as-alt = true
+title = " "
 
-shell-integration-features = ssh-terminfo,ssh-env,no-cursor
+shell-integration-features = ssh-terminfo,ssh-env,no-cursor,no-title
