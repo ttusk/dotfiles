@@ -202,6 +202,8 @@ require("lualine").setup({
             "filetype",
             {
                 "lsp_status",
+                ignore_lsp = { "GitHub Copilot" },
+                icon = "",
                 symbols = {
                     spinner = { "-", "\\", "|", "/" },
                     done = "OK",
