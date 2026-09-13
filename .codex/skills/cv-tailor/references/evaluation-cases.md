@@ -14,6 +14,34 @@ Assertions:
 - Java/Quarkus appears with professional provenance
 - PDF compiles to one page with correct email/GitHub/LinkedIn links
 - Kubernetes is not upgraded to a personal achievement unless its cited source supports it
+- the rendered preview uses the pinned `@preview/basic-resume:0.2.9` base; no manual compressed spacing overrides are introduced
+
+
+## 1a. Local Portuguese vacancy with no language signal
+
+Prompt:
+
+> Adapte meu currículo para uma vaga de backend em Brasília. A descrição está em português e não menciona idiomas: [pasted vacancy]
+
+Assertions:
+
+- `application-context.json` records a Brazilian Portuguese context without an explicit language signal
+- `cv-plan.json` sets `languages.decision` to `omit`
+- the generated CV has no `Idiomas` heading and does not repeat English in the summary or skills
+- relevant experience or readable whitespace is preferred over a generic credential line
+
+## 1b. Same market, explicit language relevance
+
+Prompt:
+
+> Adapte meu currículo para uma empresa multinacional no Brasil. A vaga pede colaboração diária com equipes nos Estados Unidos e inglês avançado: [pasted vacancy]
+
+Assertions:
+
+- the context records international interaction and an explicit language requirement
+- `cv-plan.json` includes languages with `required` priority
+- the language appears once in an appropriate location, not in every section
+- an unsupported language level remains an honest gap
 
 ## 2. English data engineering vacancy
 

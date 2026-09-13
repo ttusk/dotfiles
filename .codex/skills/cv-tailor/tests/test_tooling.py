@@ -13,13 +13,14 @@ SKILL_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SKILL_ROOT / "scripts"))
 
 from discover_master import discover_master  # noqa: E402
+from plan_sections import plan_sections  # noqa: E402
 from preflight_master import preflight_master  # noqa: E402
 from score_cv import score_cv  # noqa: E402
 from self_check import self_check  # noqa: E402
 from validate_evidence_matrix import validate_evidence_matrix  # noqa: E402
 from validate_provenance import validate_provenance  # noqa: E402
 from validate_requirements import requirement_id, validate_requirements  # noqa: E402
-from verify_cv import verify_typst  # noqa: E402
+from verify_cv import minimum_body_font_size, verify_typst  # noqa: E402
 
 
 class DiscoverMasterTests(unittest.TestCase):
@@ -499,6 +500,108 @@ class RequirementsContractTests(unittest.TestCase):
         self.assertTrue(any(error["type"] == "unstable_requirement_id" for error in invalid["errors"]))
 
 
+class SectionPlanningTests(unittest.TestCase):
+    def _requirements(self, language_requirement: dict[str, object] | None = None) -> dict[str, object]:
+        requirements: list[dict[str, object]] = [
+            {
+                "id": "req-python",
+                "priority": "must",
+                "category": "technology",
+                "text": "Python",
+                "canonical_term": "Python",
+                "aliases": [],
+                "expected_evidence": "experience",
+                "job_evidence": "Experiência com Python",
+                "knockout": False,
+            }
+        ]
+        if language_requirement:
+            requirements.append(language_requirement)
+        return {
+            "schema_version": 1,
+            "language": "pt",
+            "role": "Backend Engineer",
+            "seniority": {"value": "mid", "confidence": 0.8, "evidence": ["experiência"]},
+            "requirements": requirements,
+        }
+
+    @staticmethod
+    def _context(**overrides: str) -> dict[str, object]:
+        context: dict[str, object] = {
+            "document_language": "pt",
+            "market": "brazil",
+            "company_scope": "local",
+            "international_interaction": "no",
+            "explicit_language_signal": "absent",
+            "evidence": ["vaga em português"],
+        }
+        context.update(overrides)
+        return context
+
+    def test_omits_languages_for_local_portuguese_role_without_signal(self) -> None:
+        plan = plan_sections(self._requirements(), self._context())
+        languages = plan["section_policy"]["languages"]
+        self.assertEqual(languages["decision"], "omit")
+        self.assertNotIn("languages", plan["included_sections"])
+
+    def test_includes_language_when_local_vacancy_explicitly_prefers_it(self) -> None:
+        language_requirement = {
+            "id": "req-english",
+            "priority": "preferred",
+            "category": "language",
+            "text": "Inglês",
+            "canonical_term": "Inglês",
+            "aliases": ["English"],
+            "expected_evidence": "profile",
+            "job_evidence": "Inglês será diferencial",
+            "knockout": False,
+        }
+        plan = plan_sections(self._requirements(language_requirement), self._context())
+        self.assertEqual(plan["section_policy"]["languages"]["decision"], "include")
+        self.assertIn("languages", plan["included_sections"])
+
+    def test_includes_languages_for_international_context_without_keyword(self) -> None:
+        context = self._context(company_scope="multinational", international_interaction="yes")
+        plan = plan_sections(self._requirements(), context)
+        self.assertEqual(plan["section_policy"]["languages"]["decision"], "include")
+        self.assertEqual(
+            plan["section_policy"]["languages"]["reason"],
+            "international context makes language relevant",
+        )
+
+    def test_required_language_overrides_never_preference(self) -> None:
+        language_requirement = {
+            "id": "req-english",
+            "priority": "must",
+            "category": "language",
+            "text": "Inglês fluente",
+            "canonical_term": "Inglês fluente",
+            "aliases": ["fluent English"],
+            "expected_evidence": "profile",
+            "job_evidence": "Inglês fluente obrigatório",
+            "knockout": True,
+        }
+        plan = plan_sections(
+            self._requirements(language_requirement),
+            self._context(),
+            {"language_policy": "never"},
+        )
+        self.assertEqual(plan["section_policy"]["languages"]["decision"], "include")
+        self.assertEqual(plan["section_policy"]["languages"]["priority"], "required")
+
+
+class TypographyTests(unittest.TestCase):
+    def test_detects_the_smallest_declared_body_style(self) -> None:
+        source = (
+            '#set text(font: "New Computer Modern", size: 9.8pt)\n'
+            '#show heading.where(level: 2): it => [#set text(size: 10.5pt)]\n'
+        )
+        self.assertEqual(minimum_body_font_size(source), 9.8)
+
+    def test_detects_a_compressed_body_style(self) -> None:
+        self.assertEqual(minimum_body_font_size('#set text(size: 8.65pt)\n'), 8.65)
+
+
 @unittest.skipUnless(shutil.which("typst"), "typst is required for integration verification")
 class VerifyCvTests(unittest.TestCase):
     def test_compiles_one_page_extracts_text_and_validates_links(self) -> None:
@@ -580,6 +683,10 @@ class VerifyCvTests(unittest.TestCase):
             "REPLACE_PHONE": "+55 (61) 9 8555-8737",
             "REPLACE_GITHUB": "ttusk",
             "REPLACE_LINKEDIN": "luizgustavosc",
+            "REPLACE_SHOW_SUMMARY": "true",
+            "REPLACE_SHOW_SKILLS": "true",
+            "REPLACE_SHOW_EDUCATION": "true",
+            "REPLACE_SHOW_LANGUAGES": "false",
             "REPLACE_SUMMARY": "Desenvolvedor backend com experiência em APIs para governo digital.",
             "REPLACE_CANONICAL_TITLE": "Programador backend",
             "REPLACE_COMPANY": "BBSIA",
@@ -623,8 +730,19 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("verify_cv.py", skill)
         self.assertIn("curriculo/versoes", skill)
         self.assertIn("curriculo/exports", skill)
+        self.assertIn("plan_sections.py", skill)
+        self.assertIn("application-context.json", skill)
+        self.assertIn("cv-plan.json", skill)
+        self.assertIn("context-aware", skill)
         self.assertIn("Match Score", skill)
         self.assertIn("Codex-only", skill)
+
+    def test_template_uses_pinned_basic_resume_layout(self) -> None:
+        template = (SKILL_ROOT / "assets" / "resume.typ").read_text(encoding="utf-8")
+        self.assertIn('@preview/basic-resume:0.2.9', template)
+        self.assertIn("#show: resume.with(", template)
+        self.assertNotIn("#set par(", template)
+        self.assertNotIn("#set list(", template)
 
     def test_dependency_free_skill_self_check_passes(self) -> None:
         report = self_check(SKILL_ROOT)

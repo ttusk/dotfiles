@@ -111,9 +111,18 @@ def _document_quality(verification: dict[str, Any]) -> tuple[int, list[dict[str,
         "one_page": verification.get("page_count") == 1,
         "searchable_text": bool(verification.get("searchable_text")),
         "links_valid": bool(verification.get("links_valid")),
+        "readable_typography": bool(verification.get("readable_typography", True)),
         "clean_structure": not verification.get("forbidden_constructs") and not verification.get("placeholders"),
     }
-    score = sum(2 for passed in checks.values() if passed)
+    weights = {
+        "compile_success": 2,
+        "one_page": 2,
+        "searchable_text": 2,
+        "links_valid": 2,
+        "readable_typography": 1,
+        "clean_structure": 1,
+    }
+    score = sum(weights[name] for name, passed in checks.items() if passed)
     gaps = [
         {"type": "document_quality", "requirement": name}
         for name, passed in sorted(checks.items())

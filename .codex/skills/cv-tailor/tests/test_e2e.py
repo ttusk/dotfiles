@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import shutil
 import sys
 import tempfile
 import unittest
@@ -18,6 +19,7 @@ from validate_requirements import canonicalize_requirements, validate_requiremen
 from verify_cv import verify_typst  # noqa: E402
 
 
+@unittest.skipUnless(shutil.which("typst"), "typst is required for end-to-end verification")
 class CodexCvTailorEndToEndTests(unittest.TestCase):
     def test_grounded_java_application_flow(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -118,6 +120,10 @@ class CodexCvTailorEndToEndTests(unittest.TestCase):
                 "REPLACE_PHONE": "+55 61 99999-9999",
                 "REPLACE_GITHUB": "ttusk",
                 "REPLACE_LINKEDIN": "luizgustavosc",
+                "REPLACE_SHOW_SUMMARY": "true",
+                "REPLACE_SHOW_SKILLS": "true",
+                "REPLACE_SHOW_EDUCATION": "true",
+                "REPLACE_SHOW_LANGUAGES": "false",
                 "REPLACE_SUMMARY": "Desenvolvedor backend com experiência em Java, Quarkus e APIs REST para governo digital.",
                 "REPLACE_CANONICAL_TITLE": "Programador backend",
                 "REPLACE_COMPANY": "BBSIA",

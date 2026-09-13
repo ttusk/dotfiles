@@ -16,12 +16,14 @@ REQUIRED_FILES = {
     "agents/audit.md",
     "agents/extract.md",
     "assets/resume.typ",
+    "references/context.md",
     "references/contracts.md",
     "references/evaluation-cases.md",
     "references/scoring.md",
     "references/workflow.md",
     "references/writing.md",
     "scripts/discover_master.py",
+    "scripts/plan_sections.py",
     "scripts/preflight_master.py",
     "scripts/score_cv.py",
     "scripts/validate_evidence_matrix.py",
@@ -36,6 +38,10 @@ REQUIRED_PLACEHOLDERS = {
     "REPLACE_PHONE",
     "REPLACE_GITHUB",
     "REPLACE_LINKEDIN",
+    "REPLACE_SHOW_SUMMARY",
+    "REPLACE_SHOW_SKILLS",
+    "REPLACE_SHOW_EDUCATION",
+    "REPLACE_SHOW_LANGUAGES",
     "REPLACE_SUMMARY",
     "REPLACE_CANONICAL_TITLE",
     "REPLACE_COMPANY",
@@ -54,6 +60,7 @@ REQUIRED_WORKFLOW_COMMANDS = {
     "validate_requirements.py",
     "discover_master.py",
     "preflight_master.py",
+    "plan_sections.py",
     "validate_evidence_matrix.py",
     "validate_provenance.py",
     "verify_cv.py",
@@ -101,6 +108,10 @@ def self_check(skill_root: str | Path) -> dict[str, Any]:
     for forbidden in ("#table(", "#grid(", "#columns(", "#image(", "#pagebreak("):
         if forbidden in template:
             errors.append({"type": "forbidden_template_construct", "value": forbidden})
+    if '@preview/basic-resume:0.2.9' not in template:
+        errors.append({"type": "template_base_missing", "value": "@preview/basic-resume:0.2.9"})
+    if "#show: resume.with(" not in template:
+        errors.append({"type": "template_wrapper_missing", "value": "#show: resume.with("})
 
     return {
         "schema_version": 1,

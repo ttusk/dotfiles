@@ -10,11 +10,11 @@ The score is called **Job Match Score**, not ATS Score. It is a local comparison
 | Must-have backed by professional bullet and provenance | 25 |
 | Preferred requirement coverage | 15 |
 | Responsibility alignment in experience bullets | 15 |
-| Compiled document quality | 10 |
+| Document quality | 10 |
 
-Document quality has five two-point gates: compilation, one page, searchable text, valid PDF links, and no placeholders/forbidden constructs.
+Document quality checks compilation (2), one-page layout (2), searchable text (2), valid PDF links (2), readable typography (1), and clean structure (1).
 
-Requirements are normalized case-insensitively with accents removed. Exact canonical terms and aliases come only from `requirements.json`; the scorer does not invent synonyms.
+Requirements are normalized case-insensitively with accents removed. Exact canonical terms and aliases come only from `requirements.json`; the scorer does not invent synonyms. Phrase coverage is a diagnostic signal, not a semantic judgment of candidate quality.
 
 ## Eligibility is separate
 
@@ -30,4 +30,6 @@ A score cannot hide knockout constraints:
 - `potential_match`: score at least 60 without a definitive knockout conflict
 - `weak_match`: lower score, ineligible, or weak professional evidence
 
+
+Never optimize the CV by adding optional sections or repeating keywords to improve this number. Contextual section choices come from `cv-plan.json` and recruiter usefulness takes precedence over coverage.
 Always report gaps. Never inject an unsupported keyword just to increase the score.

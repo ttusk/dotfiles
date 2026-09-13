@@ -1,72 +1,69 @@
-// Codex cv-tailor template. Replace every REPLACE_* value before compiling.
-#set page(paper: "a4", margin: (x: 1.45cm, y: 1.2cm))
-#set text(font: "New Computer Modern", size: 9.3pt, fill: rgb("#171717"))
-#set par(justify: false, leading: 0.56em)
-#set list(indent: 1.05em, body-indent: 0.45em, spacing: 0.2em)
-#show heading.where(level: 2): it => block(above: 0.65em, below: 0.35em)[
-  #set text(size: 10.5pt, weight: "bold")
-  #upper(it.body)
-  #line(length: 100%, stroke: 0.6pt + rgb("#444444"))
-]
-#show link: set text(fill: rgb("#171717"))
+// Codex cv-tailor template based on @preview/basic-resume:0.2.9.
+#import "@preview/basic-resume:0.2.9": *
 
-#let cv-header(name, location, email, phone, github-url, linkedin-url) = block(below: 0.7em)[
-  #text(size: 19pt, weight: "bold")[#name]
-  #linebreak()
-  #location · #phone · #link("mailto:" + email)[#email]
-  #linebreak()
-  #link(github-url)[#github-url] · #link(linkedin-url)[#linkedin-url]
-]
+#let name = "REPLACE_NAME"
+#let location = "REPLACE_LOCATION"
+#let email = "REPLACE_EMAIL"
+#let github = "github.com/REPLACE_GITHUB"
+#let linkedin = "linkedin.com/in/REPLACE_LINKEDIN"
+#let phone = "REPLACE_PHONE"
 
-#let work(title, company, location, dates) = block(above: 0.35em, below: 0.15em)[
-  #text(weight: "bold")[#title]
-  #linebreak()
-  #text(size: 8.7pt, fill: rgb("#444444"))[#company · #location · #dates]
-]
+#let show-summary = REPLACE_SHOW_SUMMARY
+#let show-skills = REPLACE_SHOW_SKILLS
+#let show-education = REPLACE_SHOW_EDUCATION
+#let show-languages = REPLACE_SHOW_LANGUAGES
 
-#let education(degree, institution, location, dates) = block(above: 0.25em)[
-  #text(weight: "bold")[#degree]
-  #linebreak()
-  #text(size: 8.7pt, fill: rgb("#444444"))[#institution · #location · #dates]
-]
-
-#cv-header(
-  "REPLACE_NAME",
-  "REPLACE_LOCATION",
-  "REPLACE_EMAIL",
-  "REPLACE_PHONE",
-  "https://github.com/REPLACE_GITHUB",
-  "https://www.linkedin.com/in/REPLACE_LINKEDIN",
+#show: resume.with(
+  author: name,
+  location: location,
+  email: email,
+  github: github,
+  linkedin: linkedin,
+  phone: phone,
+  accent-color: "#000000",
+  font: "New Computer Modern",
+  paper: "a4",
+  author-position: left,
+  personal-info-position: left,
+  font-size: 10pt,
+  lang: "pt",
 )
 
+#if show-summary [
 == Resumo Profissional
 
 REPLACE_SUMMARY
+]
 
 == Experiência Profissional
 
 #work(
-  "REPLACE_CANONICAL_TITLE",
-  "REPLACE_COMPANY",
-  "REPLACE_WORK_LOCATION",
-  "REPLACE_DATES",
+  title: "REPLACE_CANONICAL_TITLE",
+  company: "REPLACE_COMPANY",
+  dates: "REPLACE_DATES",
+  location: "REPLACE_WORK_LOCATION",
 )
-
 - REPLACE_GROUNDED_BULLET
 
+#if show-skills [
 == Habilidades Técnicas
 
 - *REPLACE_CATEGORY*: REPLACE_RELEVANT_SKILLS.
+]
 
+#if show-education [
 == Educação
 
-#education(
-  "REPLACE_DEGREE",
-  "REPLACE_INSTITUTION",
-  "REPLACE_EDUCATION_LOCATION",
-  "REPLACE_EDUCATION_DATES",
+#edu(
+  institution: "REPLACE_INSTITUTION",
+  location: "REPLACE_EDUCATION_LOCATION",
+  dates: "REPLACE_EDUCATION_DATES",
+  degree: "REPLACE_DEGREE",
 )
+]
 
+#if show-languages [
 == Idiomas
 
 - REPLACE_LANGUAGE_AND_LEVEL.
+]

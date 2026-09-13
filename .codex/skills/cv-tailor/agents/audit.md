@@ -6,6 +6,8 @@ Review only after deterministic requirements, provenance, PDF verification, and 
 
 - original `job.txt`
 - `requirements.json`
+- `application-context.json`
+- `cv-plan.json`
 - `evidence-matrix.json`
 - `evidence-matrix-validation.json`
 - final `.typ`
@@ -25,6 +27,10 @@ Read as a recruiter spending 20–30 seconds:
 - Are bullets concise, distinct, and outcome-oriented?
 - Does wording sound natural rather than keyword-stuffed or AI-generated?
 
+- Is the section mix appropriate for this vacancy and market?
+- Are optional languages, projects, education, and skills included for a visible reason?
+- Is any master-record fact repeated solely because it was available?
+
 ## Perspective 2: hiring-manager scan
 
 - Does technical depth match the claimed seniority?
@@ -36,6 +42,8 @@ Read as a recruiter spending 20–30 seconds:
 ## Perspective 3: document QA
 
 - Inspect every rendered PNG for clipping, overlap, tiny text, weak hierarchy, or awkward whitespace.
+
+- Confirm `cv-plan.json` decisions are honored and omitted sections are absent.
 - Confirm the delivered PDF hash is the one in `verification.json`.
 - Confirm links shown in the PDF are correct.
 

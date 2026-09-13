@@ -1,11 +1,11 @@
 ---
 name: cv-tailor
-description: Create, tailor, or audit a truthful job-specific CV from Luiz Gustavo's Obsidian master record. Use whenever the user provides or references a vacancy URL/text and asks to montar, adaptar, otimizar, gerar, comparar, pontuar, or auditar a currículo/resume for that role, including “devo aplicar?”, job-match analysis, and an application-ready Typst/PDF. Codex-only workflow with dynamic source discovery, evidence provenance, deterministic Job Match Score, real Typst/PDF verification, and recruiter review.
+description: Create, tailor, or audit a truthful, context-aware job-specific or general CV from Luiz Gustavo's Obsidian master record. Use whenever the user provides or references a vacancy URL/text, or asks to create, adapt, optimize, compare, score, or audit a currículo/resume from the master record, including “devo aplicar?”, job-match analysis, and an application-ready Typst/PDF. Select only relevant sections and claims; preserve fact-level provenance. Codex-only workflow with dynamic source discovery, deterministic checks, real Typst/PDF verification, and recruiter review.
 ---
 
 # CV Tailor for Codex
 
-Create an application-ready, source-grounded CV for a specific vacancy. Work locally in Codex. Never upload personal data or CV files to external resume services.
+Create a selective, context-aware, application-ready CV for a specific vacancy or a reusable general base. Work locally in Codex. Never upload personal data or CV files to external resume services.
 
 ## Scope
 
@@ -13,6 +13,7 @@ Use this skill for:
 
 - tailoring a CV to pasted vacancy text or a job URL
 - generating a Typst/PDF CV for an application
+- generating a reusable general CV from the master record when no vacancy is specified
 - comparing the master record with job requirements
 - deciding `apply`, `apply_with_caveats`, or `reconsider`
 - auditing an existing CV against a vacancy
@@ -27,7 +28,7 @@ Do not trigger for broad career advice without CV/vacancy work.
 - Application records: `/Users/luizgustavo/git/vault/curriculo/aplicacoes/{company-role}`
 - Skill scripts: `/Users/luizgustavo/.codex/skills/cv-tailor/scripts`
 
-Call `codex_app__load_workspace_dependencies` before PDF inspection to obtain the bundled Python runtime and PDF binaries. Use local Typst. Every command and integration in this flow targets Codex.
+Call `codex_app__load_workspace_dependencies` before PDF inspection to obtain the bundled Python runtime and PDF binaries. Use local Typst with pinned `@preview/basic-resume:0.2.9` as the layout base. Every command and integration in this flow targets Codex.
 
 ## Required reading
 
@@ -35,10 +36,11 @@ For generation or tailoring, read these files completely before acting:
 
 1. `references/workflow.md`
 2. `references/contracts.md`
-3. `references/writing.md`
-4. `agents/extract.md`
-5. `agents/assemble.md`
-6. `agents/audit.md`
+3. `references/context.md`
+4. `references/writing.md`
+5. `agents/extract.md`
+6. `agents/assemble.md`
+7. `agents/audit.md`
 
 For audit-only requests, read `references/scoring.md` and `agents/audit.md`, then stay read-only unless the user also asks for changes.
 
@@ -55,20 +57,27 @@ For audit-only requests, read `references/scoring.md` and `agents/audit.md`, the
 
 ## Authoritative workflow
 
-Follow `references/workflow.md`. The short version is:
-
 1. Capture the vacancy into `job.txt` and hash it.
 2. Extract valid `requirements.json`; validate with `validate_requirements.py`.
-3. Discover the full master record dynamically with `discover_master.py` and diagnose completeness with `preflight_master.py`.
-4. Build `evidence-matrix.json`, validate every source reference with `validate_evidence_matrix.py`, and assess knockout eligibility.
-5. Assemble from `assets/resume.typ`, writing the `.typ` and `provenance.json` together.
-6. Gate all bullets with `validate_provenance.py`.
-7. Compile and inspect the actual PDF with `verify_cv.py`.
-8. Compute the deterministic **Job Match Score** with `score_cv.py`.
-9. Inspect preview PNGs with `view_image` and perform recruiter/hiring-manager review.
-10. Make at most two grounded revision cycles, re-running every gate after changes.
+3. Create `application-context.json` and run `plan_sections.py` to produce `cv-plan.json`.
+4. Discover the full master record dynamically with `discover_master.py` and diagnose completeness with `preflight_master.py`.
+5. Build `evidence-matrix.json`, validate every requirement, and assess knockout eligibility.
+6. Assemble selectively from the pinned `@preview/basic-resume:0.2.9` base in `assets/resume.typ`, writing the `.typ` and `provenance.json` together.
+7. Gate all bullets with `validate_provenance.py`.
+8. Compile and inspect the actual PDF with `verify_cv.py`.
+9. Compute the deterministic **Job Match Score** with `score_cv.py`.
+10. Inspect preview PNGs with `view_image` and perform recruiter/hiring-manager review.
+11. Make at most two grounded revision cycles, re-running every gate after changes.
 
-The main Codex agent owns capture, extraction, assembly, and final verification. When collaboration tools are available and an independent second opinion is useful, the skill explicitly permits one audit subagent after deterministic reports exist. The subagent may review but must not rewrite files or override scripts.
+The master record is evidence, not a checklist. Optional languages, projects, education, skills, and summary content must earn their space through `cv-plan.json`. The main Codex agent owns context capture, extraction, selection, assembly, and final verification. When collaboration tools are available and an independent second opinion is useful, the skill explicitly permits one audit subagent after deterministic reports exist. The subagent may review but must not rewrite files or override scripts.
+
+## Layout baseline
+
+- `assets/resume.typ` MUST remain a thin wrapper around pinned `@preview/basic-resume:0.2.9`; preserve its `resume.with`, `#work`, and `#edu` layout primitives.
+- Do not recreate the layout or add manual `#set par`, `#set list`, heading-margin, grid, table, column, or page-break overrides.
+- If content feels cramped or overflows, remove the weakest optional content or accept another page before changing the package's spacing; never compress spacing to force one page.
+
+
 
 ## Dynamic master discovery
 
@@ -84,6 +93,8 @@ For `{company-role}`, produce:
 - `curriculo/aplicacoes/{company-role}/job.txt`
 - `curriculo/aplicacoes/{company-role}/requirements.json`
 - `curriculo/aplicacoes/{company-role}/requirements-validation.json`
+- `curriculo/aplicacoes/{company-role}/application-context.json`
+- `curriculo/aplicacoes/{company-role}/cv-plan.json`
 - `curriculo/aplicacoes/{company-role}/master.json`
 - `curriculo/aplicacoes/{company-role}/master-preflight.json`
 - `curriculo/aplicacoes/{company-role}/evidence-matrix.json`
@@ -101,18 +112,19 @@ Do not merely paste Typst in a code block. Save, compile, inspect, and link the 
 A CV is application-ready only when:
 
 - `typst compile` succeeds
-- the final PDF satisfies the requested page limit, one page by default
+- the final PDF satisfies the requested page limit without unreadably small text; one page is a preference, not a reason to compress content
 - extracted text is searchable and contains expected sections/content
 - GitHub, LinkedIn, and email PDF links are valid
 - no `REPLACE_*`, TODO, or other placeholder remains
 - no images, tables, grids, columns, rating bars, or forced page breaks are used
+- the rendered preview has visibly separated section headings, work entries, metadata, and bullet groups; passing the page-count gate alone is insufficient
+- `cv-plan.json` explains every optional section and the renderer honors all `omit` decisions
+- professional experience, projects, and education are visibly distinct
 - `evidence-matrix.json` covers every requirement exactly once and cites only discovered master sources
 - `provenance.json` covers 100% of experience bullets with current source hashes
 - work-entry company, canonical title, dates, metrics, and claims are supported by cited source lines
 - every preview page has been visually inspected
 - the delivered PDF hash matches `verification.json`
-
-Compiler warnings from dependencies are recorded but do not fail a document when compilation and all artifact gates pass.
 
 ## Match reporting
 

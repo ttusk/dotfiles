@@ -12,6 +12,7 @@ Borrow the useful interaction ideas of modern resume applications without sendin
 - give an application decision, not a mysterious universal ATS promise
 - keep every generated claim traceable to local source material
 - produce editable source, final PDF, preview, and audit artifacts
+- treat the master record as evidence, not a checklist of sections; omit optional facts that do not help this vacancy
 
 Never upload the CV, vault files, contact details, or job artifacts to `curricu.lol` or another external resume service.
 
@@ -48,7 +49,32 @@ CV_SKILL="/Users/luizgustavo/.codex/skills/cv-tailor"
 
 Do not proceed while validation fails.
 
-## Phase 3: discover the master record and run preflight
+## Phase 3: model application context and plan sections
+
+Create `application-context.json` from the vacancy and explicit user preferences, not from the candidate's master record. Record the document language, market, company scope, international interaction, explicit language signal, and exact vacancy phrases supporting those decisions. Use `unknown` when the vacancy does not establish a fact.
+
+Read `../references/context.md` and produce `cv-plan.json` before building the evidence matrix:
+
+```bash
+"$CV_PYTHON" "$CV_SKILL/scripts/plan_sections.py" \
+  --requirements requirements.json \
+  --context application-context.json \
+  --output cv-plan.json
+```
+
+If `preferences.json` exists, add `--preferences preferences.json` to the command. The default `language_policy` is `contextual`. Required vacancy languages remain visible even when an optional-section preference says `never`.
+
+The plan is authoritative for optional sections:
+
+- omit languages for a local Portuguese-language vacancy with no language signal;
+- include languages for explicit requirements, explicit preferences, or meaningful international context;
+- include projects only when they close a relevant evidence gap;
+- include education prominently when required or useful for junior hiring;
+- include a summary and skills section only when they add targeted signal.
+
+Do not proceed with an invalid plan. Do not let the Typst template override a plan decision.
+
+## Phase 4: discover the master record and run preflight
 
 Discover source material dynamically. Do not maintain a filename list:
 
@@ -78,6 +104,8 @@ Generate a deterministic completeness report inspired by useful resume-builder p
 
 The report covers personal data, professional experience, education, technical skills, verified metrics, contact, and languages. Missing metrics are a quality opportunity, not permission to invent them. If an essential category is completely absent, obtain verified user input before generating; partial non-blocking gaps remain explicit caveats.
 
+The CV variant must be selective. Do not copy all skills, languages, projects, or profile fields merely because they exist in the master record.
+
 The experience notes are canonical for dates and claims. `index.md` is navigation support. `habilidades.md` proves declared knowledge, not professional experience.
 
 Build `evidence-matrix.json` using `contracts.md`. Assess knockout criteria before assembly:
@@ -100,17 +128,20 @@ Validate exact requirement coverage, statuses, and source IDs before assembly:
 
 Do not proceed while this report is invalid.
 
-## Phase 4: assemble grounded Typst and provenance
+## Phase 5: assemble grounded Typst and provenance
 
+
+Read `../references/context.md` and `cv-plan.json` before assembly. Use the plan to decide which sections and experiences earn space. An omitted section must not be reintroduced to fill whitespace.
 Read `../agents/assemble.md` and `writing.md` completely.
 
-1. Copy the structure of `../assets/resume.typ` into a new file under `curriculo/versoes/`.
-2. Use full `https://github.com/...` and `https://www.linkedin.com/in/...` URLs. Never pass a username-only URL.
+1. Copy the structure of `../assets/resume.typ` into a new file under `curriculo/versoes/`; this template is a thin wrapper around pinned `@preview/basic-resume:0.2.9`, not an ad hoc layout.
+2. For the package's contact fields, pass `github.com/<username>` and `linkedin.com/in/<username>`; the package creates full HTTPS link targets. Never pass a username-only value.
 3. Create `provenance.json` alongside the application artifacts. Every rendered experience bullet and every work-entry header must have current source path, hash, line range, exact claims, and transformations where applicable.
 4. Preserve canonical company, institution, role, dates, metrics, and technologies. Do not promote a title to match the vacancy.
-5. Use present tense for ongoing responsibilities and past tense for completed outcomes. Use natural action verbs without first-person pronouns.
+5. Keep professional experience, projects, and education visibly distinct. A project may support a requirement without becoming professional experience.
+6. Use present tense for ongoing recurring work and past tense for completed outcomes. Use natural action verbs without first-person pronouns.
 
-## Phase 5: deterministic gates
+## Phase 6: deterministic gates
 
 Run provenance validation first:
 
@@ -150,17 +181,21 @@ Compute the deterministic Match Score only after the PDF and provenance reports 
   --output match-report.json
 ```
 
+
+The deterministic reports establish truth, eligibility, and document integrity. They do not establish that the CV is persuasive. A visually valid CV still fails if it is dense, generic, repetitive, or contextually irrelevant.
 The scripts are authoritative for compilation, pages, text, links, provenance coverage, eligibility, and Match Score.
 
-## Phase 6: visual and qualitative review
+## Phase 7: visual and qualitative review
 
-1. Open every preview PNG with `view_image`. Check clipping, collisions, weak hierarchy, awkward whitespace, and unreadably small text.
+1. Open every preview PNG with `view_image`. Check clipping, collisions, weak hierarchy, awkward whitespace, unreadably small text, and whether headings, work entries, metadata, bullet groups, skills, and education have clear separation.
+
+Review every section decision in `cv-plan.json`. Check that optional sections were included for a vacancy-specific reason and that omitted content was not repeated elsewhere.
 2. Read `../agents/audit.md`. Perform two qualitative perspectives:
    - recruiter scan: relevance and clarity in the first 20–30 seconds
    - hiring-manager scan: technical credibility, scope, impact, and seniority fit
 3. Qualitative reviewers may identify issues but must not invent a second numeric score or override deterministic reports.
 
-## Phase 7: revise and deliver
+## Phase 8: revise and deliver
 
 - Make at most two focused revision cycles.
 - Revise only grounded wording, selection, ordering, or layout.

@@ -43,6 +43,14 @@ Rules:
 - Summary is optional and limited to 2–3 lines.
 - State the target domain only when supported by experience.
 - Skills declared only in `habilidades.md` can appear in skills, but do not describe them as professional experience.
+
+## Contextual inclusion
+
+- The master record may contain more information than the application needs.
+- Do not include languages, projects, education, or every skill by default.
+- For a local Portuguese-language vacancy with no language signal, omit the language section and do not repeat the language elsewhere.
+- Include a language when the vacancy requires or prefers it, when international interaction is explicit, or when the application context makes it a meaningful differentiator.
+- Never use an optional section to fill whitespace. Use the space for stronger evidence or leave it clean.
 - Keep mandatory unsupported skills as gaps, not hidden keywords.
 
 ## Conservative Typst output
@@ -50,5 +58,5 @@ Rules:
 - Use `assets/resume.typ` as the structural base.
 - Linear single-column content.
 - A4 for Brazil/Europe; US Letter only for a clearly US-targeted application.
-- Full HTTPS GitHub and LinkedIn URLs.
+- For `basic-resume` contact fields, use `github.com/...` and `linkedin.com/in/...` inputs so the rendered link targets are full HTTPS URLs; verify the PDF links.
 - No images, icons, charts, rating bars, page breaks, tables, grids, or multi-column layouts.

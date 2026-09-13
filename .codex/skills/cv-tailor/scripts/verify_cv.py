@@ -28,6 +28,19 @@ PLACEHOLDER_PATTERNS = [
     r"\bREPLACE_[A-Z0-9_]+\b",
 ]
 
+MIN_BODY_FONT_SIZE = 9.5
+
+
+def minimum_body_font_size(source: str) -> float | None:
+    sizes: list[float] = []
+    for line in source.splitlines():
+        if "#set text(" not in line:
+            continue
+        match = re.search(r"\bsize\s*:\s*([0-9]+(?:\.[0-9]+)?)pt", line)
+        if match:
+            sizes.append(float(match.group(1)))
+    return min(sizes) if sizes else None
+
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -90,20 +103,44 @@ def verify_typst(
     pdf_path = Path(pdf_path).resolve()
     source = typ_path.read_text(encoding="utf-8")
     expected_text = expected_text or []
+    min_body_font_size = minimum_body_font_size(source)
+    readable_typography = min_body_font_size is None or min_body_font_size >= MIN_BODY_FONT_SIZE
     typst = typst_executable or shutil.which("typst")
     if not typst:
         return {
+            "schema_version": 1,
+            "valid": False,
             "compile_success": False,
             "error": "typst executable not found",
+            "compiler_exit_code": None,
+            "compiler_stderr": "",
             "page_count": None,
+            "max_pages": max_pages,
+            "page_limit_ok": False,
             "searchable_text": False,
+            "extracted_text_length": 0,
+            "missing_expected_text": expected_text,
+            "links": [],
+            "invalid_links": [],
+            "required_links": {"email": False, "github": False, "linkedin": False},
+            "missing_required_links": ["email", "github", "linkedin"],
             "links_valid": False,
+            "readable_typography": readable_typography,
+            "min_body_font_size": min_body_font_size,
+            "typography_gaps": ["typst executable not found"],
             "forbidden_constructs": [],
             "placeholders": [],
+            "extraction_error": None,
+            "previews": [],
+            "typ_sha256": _sha256(typ_path),
+            "pdf_sha256": None,
         }
 
     forbidden = sorted(name for name, pattern in FORBIDDEN_PATTERNS.items() if re.search(pattern, source))
     placeholders = sorted({match.group(0) for pattern in PLACEHOLDER_PATTERNS for match in re.finditer(pattern, source)})
+    min_body_font_size = minimum_body_font_size(source)
+    readable_typography = min_body_font_size is None or min_body_font_size >= MIN_BODY_FONT_SIZE
+    typography_gaps = [] if readable_typography else [f"body font below {MIN_BODY_FONT_SIZE:g}pt"]
     pdf_path.parent.mkdir(parents=True, exist_ok=True)
     completed = subprocess.run(
         [typst, "compile", str(typ_path), str(pdf_path)],
@@ -149,6 +186,7 @@ def verify_typst(
             page_limit_ok,
             searchable_text,
             links_valid,
+            readable_typography,
             not forbidden,
             not placeholders,
             not missing_expected,
@@ -172,6 +210,9 @@ def verify_typst(
         "required_links": required_links,
         "missing_required_links": missing_required_links,
         "links_valid": links_valid,
+        "readable_typography": readable_typography,
+        "min_body_font_size": min_body_font_size,
+        "typography_gaps": typography_gaps,
         "forbidden_constructs": forbidden,
         "placeholders": placeholders,
         "extraction_error": extraction_error,

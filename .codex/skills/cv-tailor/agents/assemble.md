@@ -1,6 +1,6 @@
 # Grounded Typst assembly for Codex
 
-Build a tailored one-column Typst CV from validated artifacts. The authoritative inputs are `master.json`, `requirements.json`, `evidence-matrix.json`, and `../assets/resume.typ`.
+Build a selective, contextual one-column Typst CV from validated `master.json`, `requirements.json`, `application-context.json`, `cv-plan.json`, `evidence-matrix.json`, and `../assets/resume.typ`.
 
 ## Dynamic source selection
 
@@ -16,10 +16,11 @@ When sources conflict, the dedicated experience note wins. Unknown dates remain 
 
 ## Selection
 
-- Rank experiences by professional evidence for must-haves, responsibility alignment, recency, and supported impact.
-- Do not select an experience solely to repeat a keyword.
-- Start with 2–4 bullets per experience and 5–8 total. The compiled page count, not a bullet heuristic, is the final length gate.
-- Projects may be included when they add missing relevant evidence and are clearly labeled as projects.
+- Follow every `decision` in `cv-plan.json`; an omitted optional section must not be restored to fill the page.
+- Rank experiences and facts by requirement coverage, professional evidence, responsibility alignment, recency, supported impact, and narrative diversity.
+- Do not select an experience solely to repeat a keyword. Prefer a concrete proof point over a generic credential list.
+- Keep professional experience, projects, and education distinct. Include a project only when it closes a relevant requirement that professional evidence does not cover.
+- Use a page budget. Prefer fewer readable bullets over a complete inventory. One page is preferred only when it remains readable; use an additional page rather than shrinking the body text or duplicating content.
 
 ## Writing
 
@@ -30,16 +31,23 @@ Read `../references/writing.md` completely.
 - A source-backed descriptive subtitle is allowed, but the canonical title must remain visible.
 - Use present tense for current recurring work and past tense for completed outcomes.
 - Remove first-person pronouns and internal jargon.
-- Match the vacancy language naturally.
+- Match the vacancy language naturally without copying its entire vocabulary.
 - Keep unsupported mandatory requirements in the gap report. Do not inject them.
+- Never repeat an optional fact in multiple sections merely to increase keyword coverage.
 
 ## Typst
 
-- Use `../assets/resume.typ` as the base; do not recreate layout ad hoc.
-- Replace every `REPLACE_*` placeholder.
+- Use `../assets/resume.typ` as the base; it is a thin wrapper around the pinned `@preview/basic-resume:0.2.9` package. Preserve the package import and `resume.with` wrapper.
+- For `basic-resume` contact fields, pass `github.com/<username>` and `linkedin.com/in/<username>` so the package creates HTTPS targets; never pass a bare username, and verify the embedded PDF links.
+- Use the package's `#work`, `#edu`, and `dates-helper` primitives instead of recreating spacing or alignment.
+- Replace every `REPLACE_*` placeholder, including the four section visibility flags.
+- Render only sections whose `cv-plan.json` decision is `include`; resolve `conditional` sections from evidence before rendering.
 - Use A4 for Brazil/Europe and US Letter only for an explicitly US-targeted role.
-- Use full URLs: `https://github.com/{username}` and `https://www.linkedin.com/in/{username}`.
 - Keep a single linear column. No tables, grids, columns, images, icons, rating bars, charts, or forced page breaks.
+- Do not add manual `#set par`, `#set list`, heading-margin, or block-spacing overrides on top of `basic-resume`; its defaults are the spacing baseline.
+- If the content is cramped or overflows, first remove the weakest optional bullets/sections or accept a second page. Never tighten package spacing or body text to force one page.
+- Inspect the rendered preview for clear separation between section headings, work headers, metadata, bullet groups, skills, and education. A valid page count does not prove readable spacing.
+- Keep body text readable. Do not force one page by reducing typography below the template's readable baseline.
 - Save editable output at `curriculo/versoes/cv-{company}-{role}.typ`.
 
 ## Provenance
