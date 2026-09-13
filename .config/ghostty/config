@@ -1,5 +1,5 @@
-theme = light:iTerm2 Solarized Light,dark:sunbather-dark
-font-family = "Monaco Nerd Font Mono"
+theme = light:sunbather-light,dark:sunbather-dark
+font-family = "IosevkaTerm NF"
 cursor-style = block
 cursor-style-blink = false
 

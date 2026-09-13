@@ -173,6 +173,17 @@ require("lualine").setup({
     sections = {
         lualine_a = { "mode" },
         lualine_b = {
+            {
+                function() return "λ" end,
+                color = function()
+                    return {
+                        fg = vim.o.background == "dark" and "#d75f87" or "#586e75",
+                        gui = "bold",
+                    }
+                end,
+                padding = { left = 1, right = 0 },
+                separator = "",
+            },
             "branch",
             { "diff", symbols = { added = "+", modified = "~", removed = "-" } },
             {
