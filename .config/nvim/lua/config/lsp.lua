@@ -111,6 +111,31 @@ vim.lsp.config["ts_ls"] = {
         },
     },
 }
+local elixir_ls = vim.fn.exepath("elixir-ls")
+vim.lsp.config["elixirls"] = {
+    cmd = { elixir_ls },
+    filetypes = { "elixir", "eelixir", "heex" },
+    root_markers = {
+        "mix.exs",
+    },
+}
+
+if elixir_ls ~= "" and vim.fn.executable(elixir_ls) == 1 then
+    vim.lsp.enable("elixirls")
+end
+
+vim.lsp.config["marksman"] = {
+    cmd = { "marksman", "server" },
+    filetypes = { "markdown" },
+    root_markers = {
+        ".marksman.toml",
+        ".git",
+    },
+}
+
+if vim.fn.executable("marksman") == 1 then
+    vim.lsp.enable("marksman")
+end
 
 if vim.fn.executable("lua-language-server") == 1 then
     vim.lsp.enable("lua_ls")

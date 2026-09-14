@@ -18,8 +18,12 @@
 !.config/nvim/
 !.config/nvim/**
 !.config/starship.toml
+!.config/fastfetch/
+!.config/fastfetch/**
 !.config/opencode/
 !.config/opencode/**
+!.config/yazi/
+!.config/yazi/**
 
 # Codex skills
 !.codex/

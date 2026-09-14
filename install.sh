@@ -245,6 +245,7 @@ ensure_brew_formulae() {
     ghcup
     rustup
     elixir
+    elixir-ls
     uv
     zoxide
     fzf
@@ -504,6 +505,7 @@ verify_install() {
     set -eu
     for command_name in \
       starship nvim node pnpm bun cargo rustup rust-analyzer timr-tui \
+      elixir-ls \
       elixir uv ghcup ghc cabal stack haskell-language-server-wrapper; do
       if ! command -v "$command_name" >/dev/null 2>&1; then
         printf "missing command: %s\\n" "$command_name" >&2

@@ -1,5 +1,6 @@
 # 1. Base environment
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+export EDITOR="nvim"
 
 
 export BUN_INSTALL="$HOME/.bun"
@@ -92,9 +93,9 @@ alias commit='git commit -m'
 alias clone='git clone'
 alias pull='git pull'
 alias cls='clear'
-alias ll='ls -lah'
-alias la='ls -A'
-alias timer='timr-tui'
+alias ls='eza'
+alias ll='eza -lah'
+alias la='eza -A'
 alias ..='cd ..'
 alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias dots='dotfiles'

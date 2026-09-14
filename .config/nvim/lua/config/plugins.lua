@@ -1,4 +1,9 @@
 vim.g.copilot_no_tab_map = true
+
+-- Keep LazyGit's floating modal in the same ASCII style as Telescope.
+vim.g.lazygit_floating_window_scaling_factor = 0.9
+vim.g.lazygit_floating_window_border_chars = { "-", "|", "-", "|", "+", "+", "+", "+" }
+
 vim.pack.add({
     {
         src = "https://github.com/nikolvs/vim-sunbather",
@@ -19,6 +24,10 @@ vim.pack.add({
     {
         src = "https://github.com/nvim-telescope/telescope.nvim",
         name = "telescope",
+    },
+    {
+        src = "https://github.com/kdheepak/lazygit.nvim",
+        name = "lazygit",
     },
     {
         src = "https://github.com/mfussenegger/nvim-lint",
@@ -59,6 +68,10 @@ vim.pack.add({
     {
         src = "https://github.com/3rd/image.nvim",
         name = "image",
+    },
+    {
+        src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+        name = "render-markdown",
     },
 })
 
@@ -162,6 +175,26 @@ require("mini.comment").setup({
         comment_visual = "<leader>c",
     },
 })
+require("mini.icons").setup({
+    style = "glyph",
+})
+local mini_icons = require("mini.icons")
+local function filetype_icon()
+    local filetype = vim.bo.filetype
+    if filetype == "" then
+        return ""
+    end
+    return mini_icons.get("filetype", filetype)
+end
+local function filetype_icon_color()
+    local filetype = vim.bo.filetype
+    if filetype == "" then
+        return nil
+    end
+    local _, highlight = mini_icons.get("filetype", filetype)
+    return highlight
+end
+
 require("lualine").setup({
     options = {
         icons_enabled = false,
@@ -199,7 +232,10 @@ require("lualine").setup({
             },
         },
         lualine_x = {
-            "filetype",
+            {
+                filetype_icon,
+                color = filetype_icon_color,
+            },
             {
                 "lsp_status",
                 ignore_lsp = { "GitHub Copilot" },
@@ -219,16 +255,28 @@ require("lualine").setup({
         lualine_a = {},
         lualine_b = {},
         lualine_c = { "filename" },
-        lualine_x = { "filetype", "location" },
+        lualine_x = {
+            {
+                filetype_icon,
+                color = filetype_icon_color,
+            },
+            "location",
+        },
         lualine_y = {},
         lualine_z = {},
     },
     extensions = { "nvim-tree", "quickfix", "man" },
 })
+require("mini.tabline").setup({
+    show_icons = true,
+})
 local treesitter_filetypes = {
     "astro",
     "bash",
     "css",
+    "eelixir",
+    "elixir",
+    "heex",
     "html",
     "javascript",
     "json",
@@ -248,6 +296,9 @@ require("nvim-treesitter").install({
     "astro",
     "bash",
     "css",
+    "eex",
+    "elixir",
+    "heex",
     "html",
     "javascript",
     "json",
@@ -259,6 +310,73 @@ require("nvim-treesitter").install({
     "typescript",
     "vim",
     "vimdoc",
+    "yaml",
+})
+require("render-markdown").setup({
+    render_modes = { "n", "c", "t" },
+    latex = {
+        enabled = false,
+    },
+    completions = {
+        lsp = {
+            enabled = true,
+        },
+    },
+    heading = {
+        sign = false,
+        icons = { "H1 ", "H2 ", "H3 ", "H4 ", "H5 ", "H6 " },
+        position = "inline",
+        width = "block",
+    },
+    code = {
+        sign = false,
+        language_icon = false,
+        language_info = false,
+        width = "block",
+        border = "thin",
+        language_border = "-",
+        above = "-",
+        below = "-",
+    },
+    bullet = {
+        icons = { "-", "*", "+" },
+    },
+    checkbox = {
+        unchecked = {
+            icon = "[ ]",
+        },
+        checked = {
+            icon = "[x]",
+        },
+        custom = {
+            todo = {
+                rendered = "[-]",
+            },
+        },
+    },
+    quote = {
+        icon = ">",
+    },
+    dash = {
+        icon = "-",
+    },
+    pipe_table = {
+        border = { "+", "+", "+", "+", "+", "+", "+", "+", "+", "|", "-" },
+        alignment_indicator = "-",
+    },
+    link = {
+        enabled = false,
+    },
+    win_options = {
+        conceallevel = {
+            default = 2,
+            rendered = 3,
+        },
+        concealcursor = {
+            default = "",
+            rendered = "",
+        },
+    },
 })
 local treesitter_group = vim.api.nvim_create_augroup("treesitter-start", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -275,6 +393,9 @@ require("conform").setup({
         typescript = { "prettier" },
         typescriptreact = { "prettier" },
         css = { "prettier" },
+        eelixir = { "mix" },
+        elixir = { "mix" },
+        heex = { "mix" },
         html = { "prettier" },
         json = { "prettier" },
         jsonc = { "prettier" },

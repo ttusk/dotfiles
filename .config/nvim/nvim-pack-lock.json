@@ -20,6 +20,10 @@
       "rev": "5c6f29a5069e1f7bd5773ce5907454063b0f125d",
       "src": "https://github.com/3rd/image.nvim"
     },
+    "lazygit": {
+      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
+      "src": "https://github.com/kdheepak/lazygit.nvim"
+    },
     "lualine": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
@@ -47,6 +51,10 @@
     "plenary": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "render-markdown": {
+      "rev": "1c88406fac56809eef03b1132aca90eca55a9b89",
+      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "solarized": {
       "rev": "a8085e29883ddcfb39bd46197eb32ef00df05368",
