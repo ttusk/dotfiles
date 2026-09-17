@@ -1,4 +1,4 @@
-theme = light:tdsotm-light,dark:tdsotm-dark
+theme = light:sunbather-light,dark:sunbather-dark
 font-family = "IosevkaTerm NF"
 cursor-style = block
 cursor-style-blink = false

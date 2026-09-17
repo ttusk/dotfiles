@@ -69,7 +69,7 @@ fi
 # 5. Starship prompt
 __set_starship_theme() {
   local config="$HOME/.config/starship.toml"
-  local autosuggest_style='fg=#767676'
+  local autosuggest_style='fg=#93a1a1'
 
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
     config="$HOME/.config/starship-dark.toml"

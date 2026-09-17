@@ -3,5 +3,5 @@
 # Yazi keeps its shipped file and directory icons; only the adaptive palette
 # is selected here.
 [flavor]
-dark = "tdsotm-dark"
-light = "tdsotm-light"
+dark = "sunbather-dark"
+light = "sunbather-light"

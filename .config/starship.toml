@@ -9,8 +9,8 @@ $line_break\
 $character"""
 
 [username]
-style_user = "#cc102d"
-style_root = "bold #cc102d"
+style_user = "#d75f87"
+style_root = "bold #c30771"
 format = "[$user]($style) | "
 show_always = true
 
@@ -22,7 +22,7 @@ ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "#1a7894"
+style = "#008ec4"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -38,11 +38,11 @@ shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "#767676"
+style = "#93a1a1"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "#427b12"
+style = "#10a778"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -56,11 +56,11 @@ diverged = "<>"
 up_to_date = ""
 [cmd_duration]
 format = " took:$duration "
-style = "#7f7000"
+style = "#a89c14"
 
 [haskell]
 symbol = "λ"
-style = "#634c8a"
+style = "#a790d5"
 format = '([$symbol $version]($style) )'
 
 [python]
@@ -70,6 +70,6 @@ detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold #cc102d)"
-error_symbol = "[λ](bold #cc102d)"
-vimcmd_symbol = "[λ](bold #427b12)"
+success_symbol = "[λ](bold #ff5f87)"
+error_symbol = "[λ](bold #c30771)"
+vimcmd_symbol = "[λ](bold #10a778)"
