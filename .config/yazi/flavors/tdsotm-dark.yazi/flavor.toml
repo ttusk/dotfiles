@@ -1,0 +1,95 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+# The Dark Side of the Moon dark palette: #111111 / #f1f1f1.
+# Structural separators stay ASCII so Yazi matches Neovim and tmux.
+[app]
+overall = { bg = "#111111" }
+
+[mgr]
+cwd = { fg = "#71c0de" }
+find_keyword = { fg = "#ffff28", bold = true, italic = true, underline = true }
+find_position = { fg = "#f25f72", bg = "#111111", bold = true, italic = true }
+symlink_target = { fg = "#767676", italic = true }
+marker_copied = { fg = "#111111", bg = "#7dc62c" }
+marker_cut = { fg = "#111111", bg = "#cc102d" }
+marker_marked = { fg = "#111111", bg = "#71c0de" }
+marker_selected = { fg = "#111111", bg = "#ffff28" }
+marker_symbol = "|"
+count_copied = { fg = "#111111", bg = "#7dc62c" }
+count_cut = { fg = "#111111", bg = "#cc102d" }
+count_selected = { fg = "#111111", bg = "#ffff28" }
+border_symbol = "|"
+border_style = { fg = "#3a3a3a" }
+
+[tabs]
+active = { fg = "#f25f72", bold = true }
+inactive = { fg = "#767676" }
+sep_inner = { open = "[", close = "]" }
+sep_outer = { open = "", close = "" }
+
+[mode]
+normal_main = { fg = "#111111", bg = "#f25f72", bold = true }
+normal_alt = { fg = "#767676" }
+select_main = { fg = "#111111", bg = "#7dc62c", bold = true }
+select_alt = { fg = "#7dc62c" }
+unset_main = { fg = "#111111", bg = "#cc102d", bold = true }
+unset_alt = { fg = "#cc102d" }
+
+[indicator]
+padding = { open = "", close = "" }
+
+[status]
+overall = { fg = "#f1f1f1" }
+sep_left = { open = "| ", close = "" }
+sep_right = { open = "", close = " |" }
+perm_sep = { fg = "#3a3a3a" }
+perm_type = { fg = "#7dc62c" }
+perm_read = { fg = "#ffff28" }
+perm_write = { fg = "#cc102d" }
+perm_exec = { fg = "#71c0de" }
+progress_label = { bold = true }
+progress_normal = { fg = "#7dc62c", bg = "#1b1b1b" }
+progress_error = { fg = "#ffff28", bg = "#cc102d" }
+
+[which]
+border = { fg = "#3a3a3a" }
+cand = { fg = "#71c0de" }
+rest = { fg = "#767676" }
+desc = { fg = "#a68bcb" }
+separator = " | "
+separator_style = { fg = "#3a3a3a" }
+
+[confirm]
+border = { fg = "#3a3a3a" }
+title = { fg = "#f25f72" }
+btn_yes = { fg = "#111111", bg = "#7dc62c", bold = true }
+
+[spot]
+border = { fg = "#3a3a3a" }
+title = { fg = "#f25f72" }
+tbl_col = { fg = "#71c0de" }
+tbl_cell = { fg = "#111111", bg = "#ffff28" }
+
+[notify]
+title_info = { fg = "#7dc62c" }
+title_warn = { fg = "#ffff28" }
+title_error = { fg = "#cc102d" }
+
+[pick]
+border = { fg = "#3a3a3a" }
+active = { fg = "#f25f72", bold = true }
+
+[input]
+border = { fg = "#3a3a3a" }
+
+[cmp]
+border = { fg = "#3a3a3a" }
+
+[tasks]
+border = { fg = "#3a3a3a" }
+hovered = { fg = "#f25f72", bold = true }
+
+[help]
+border = { fg = "#3a3a3a" }
+chord = { fg = "#71c0de" }
+hovered = { reversed = true, bold = true }

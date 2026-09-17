@@ -12,10 +12,6 @@
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "gruvbox": {
-      "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
-      "src": "https://github.com/ellisonleao/gruvbox.nvim"
-    },
     "image": {
       "rev": "5c6f29a5069e1f7bd5773ce5907454063b0f125d",
       "src": "https://github.com/3rd/image.nvim"
@@ -56,13 +52,9 @@
       "rev": "1c88406fac56809eef03b1132aca90eca55a9b89",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
-    "solarized": {
-      "rev": "a8085e29883ddcfb39bd46197eb32ef00df05368",
-      "src": "https://github.com/maxmx03/solarized.nvim"
-    },
-    "sunbather": {
-      "rev": "64506a07a735ad92752e0e9935c4fc304f0327a4",
-      "src": "https://github.com/nikolvs/vim-sunbather"
+    "tdsotm": {
+      "rev": "d3fa8d5e1d263dbc3e666fd3a7978c78113bed2a",
+      "src": "https://github.com/ttusk/colorscheme.tdsotm"
     },
     "telescope": {
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",

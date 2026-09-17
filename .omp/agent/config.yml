@@ -6,8 +6,8 @@ modelRoles:
   default: openai-codex/gpt-5.6-luna:max
 symbolPreset: ascii
 theme:
-  light: sunbather-light
-  dark: sunbather-dark
+  light: tdsotm-light
+  dark: tdsotm-dark
 setupVersion: 2
 statusLine:
   separator: ascii

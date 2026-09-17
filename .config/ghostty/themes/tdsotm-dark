@@ -1,0 +1,23 @@
+# The Dark Side of the Moon dark palette.
+palette = 0=#111111
+palette = 1=#cc102d
+palette = 2=#7dc62c
+palette = 3=#ffff28
+palette = 4=#71c0de
+palette = 5=#634c8a
+palette = 6=#71c0de
+palette = 7=#f1f1f1
+palette = 8=#1b1b1b
+palette = 9=#f25f72
+palette = 10=#7dc62c
+palette = 11=#ffff28
+palette = 12=#71c0de
+palette = 13=#a68bcb
+palette = 14=#71c0de
+palette = 15=#ffffff
+background = #111111
+foreground = #f1f1f1
+cursor-color = #cc102d
+cursor-text = #ffffff
+selection-background = #634c8a
+selection-foreground = #ffffff

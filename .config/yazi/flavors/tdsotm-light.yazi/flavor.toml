@@ -1,0 +1,95 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+# The Dark Side of the Moon light palette: #ffffff / #262626.
+# Structural separators stay ASCII so Yazi matches Neovim and tmux.
+[app]
+overall = { bg = "#ffffff" }
+
+[mgr]
+cwd = { fg = "#1a7894" }
+find_keyword = { fg = "#7f7000", bold = true, italic = true, underline = true }
+find_position = { fg = "#cc102d", bg = "#ffffff", bold = true, italic = true }
+symlink_target = { fg = "#767676", italic = true }
+marker_copied = { fg = "#ffffff", bg = "#427b12" }
+marker_cut = { fg = "#ffffff", bg = "#cc102d" }
+marker_marked = { fg = "#111111", bg = "#71c0de" }
+marker_selected = { fg = "#111111", bg = "#ffff28" }
+marker_symbol = "|"
+count_copied = { fg = "#ffffff", bg = "#427b12" }
+count_cut = { fg = "#ffffff", bg = "#cc102d" }
+count_selected = { fg = "#111111", bg = "#ffff28" }
+border_symbol = "|"
+border_style = { fg = "#c6c6c6" }
+
+[tabs]
+active = { fg = "#cc102d", bold = true }
+inactive = { fg = "#767676" }
+sep_inner = { open = "[", close = "]" }
+sep_outer = { open = "", close = "" }
+
+[mode]
+normal_main = { fg = "#ffffff", bg = "#cc102d", bold = true }
+normal_alt = { fg = "#767676" }
+select_main = { fg = "#ffffff", bg = "#427b12", bold = true }
+select_alt = { fg = "#427b12" }
+unset_main = { fg = "#ffffff", bg = "#cc102d", bold = true }
+unset_alt = { fg = "#cc102d" }
+
+[indicator]
+padding = { open = "", close = "" }
+
+[status]
+overall = { fg = "#262626" }
+sep_left = { open = "| ", close = "" }
+sep_right = { open = "", close = " |" }
+perm_sep = { fg = "#767676" }
+perm_type = { fg = "#427b12" }
+perm_read = { fg = "#7f7000" }
+perm_write = { fg = "#cc102d" }
+perm_exec = { fg = "#1a7894" }
+progress_label = { bold = true }
+progress_normal = { fg = "#427b12", bg = "#f1f1f1" }
+progress_error = { fg = "#ffffff", bg = "#cc102d" }
+
+[which]
+border = { fg = "#c6c6c6" }
+cand = { fg = "#1a7894" }
+rest = { fg = "#767676" }
+desc = { fg = "#634c8a" }
+separator = " | "
+separator_style = { fg = "#767676" }
+
+[confirm]
+border = { fg = "#c6c6c6" }
+title = { fg = "#cc102d" }
+btn_yes = { fg = "#ffffff", bg = "#427b12", bold = true }
+
+[spot]
+border = { fg = "#c6c6c6" }
+title = { fg = "#cc102d" }
+tbl_col = { fg = "#1a7894" }
+tbl_cell = { fg = "#111111", bg = "#ffff28" }
+
+[notify]
+title_info = { fg = "#427b12" }
+title_warn = { fg = "#7f7000" }
+title_error = { fg = "#cc102d" }
+
+[pick]
+border = { fg = "#c6c6c6" }
+active = { fg = "#cc102d", bold = true }
+
+[input]
+border = { fg = "#c6c6c6" }
+
+[cmp]
+border = { fg = "#c6c6c6" }
+
+[tasks]
+border = { fg = "#c6c6c6" }
+hovered = { fg = "#cc102d", bold = true }
+
+[help]
+border = { fg = "#c6c6c6" }
+chord = { fg = "#1a7894" }
+hovered = { reversed = true, bold = true }

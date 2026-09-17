@@ -16,4 +16,4 @@ opt.termguicolors = true
 
 local background = system_background()
 opt.background = background
-vim.cmd.colorscheme("sunbather")
+vim.cmd.colorscheme("tdsotm")

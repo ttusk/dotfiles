@@ -1,0 +1,23 @@
+# The Dark Side of the Moon light palette.
+palette = 0=#262626
+palette = 1=#cc102d
+palette = 2=#427b12
+palette = 3=#7f7000
+palette = 4=#1a7894
+palette = 5=#634c8a
+palette = 6=#1a7894
+palette = 7=#5e5e5e
+palette = 8=#767676
+palette = 9=#cc102d
+palette = 10=#427b12
+palette = 11=#7f7000
+palette = 12=#1a7894
+palette = 13=#634c8a
+palette = 14=#1a7894
+palette = 15=#ffffff
+background = #ffffff
+foreground = #262626
+cursor-color = #cc102d
+cursor-text = #ffffff
+selection-background = #e8ddf2
+selection-foreground = #262626

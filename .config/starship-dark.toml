@@ -9,8 +9,8 @@ $line_break\
 $character"""
 
 [username]
-style_user = "#c6c6c6"
-style_root = "bold #e32791"
+style_user = "#f1f1f1"
+style_root = "bold #cc102d"
 format = "[$user]($style) | "
 show_always = true
 
@@ -22,7 +22,7 @@ ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "#008ec4"
+style = "#71c0de"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -42,7 +42,7 @@ style = "#767676"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "#5fd7a7"
+style = "#7dc62c"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -57,11 +57,11 @@ up_to_date = ""
 
 [cmd_duration]
 format = " took:$duration "
-style = "#ffff87"
+style = "#ffff28"
 
 [haskell]
 symbol = "λ"
-style = "#a790d5"
+style = "#a68bcb"
 format = '([$symbol $version]($style) )'
 
 [python]
@@ -71,9 +71,9 @@ detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold #d75f87)"
-error_symbol = "[λ](bold #e32791)"
-vimcmd_symbol = "[λ](bold #d75f87)"
-vimcmd_visual_symbol = "[❮](bold #d75f87)"
-vimcmd_replace_symbol = "[❮](bold #e32791)"
-vimcmd_replace_one_symbol = "[❮](bold #e32791)"
+success_symbol = "[λ](bold #f25f72)"
+error_symbol = "[λ](bold #cc102d)"
+vimcmd_symbol = "[λ](bold #f25f72)"
+vimcmd_visual_symbol = "[❮](bold #f25f72)"
+vimcmd_replace_symbol = "[❮](bold #cc102d)"
+vimcmd_replace_one_symbol = "[❮](bold #cc102d)"

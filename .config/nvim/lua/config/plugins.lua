@@ -6,12 +6,8 @@ vim.g.lazygit_floating_window_border_chars = { "-", "|", "-", "|", "+", "+", "+"
 
 vim.pack.add({
     {
-        src = "https://github.com/nikolvs/vim-sunbather",
-        name = "sunbather",
-    },
-    {
-        src = "https://github.com/maxmx03/solarized.nvim",
-        name = "solarized",
+        src = "https://github.com/ttusk/colorscheme.tdsotm",
+        name = "tdsotm",
     },
     {
         src = "https://github.com/nvim-tree/nvim-tree.lua",
@@ -198,7 +194,7 @@ end
 require("lualine").setup({
     options = {
         icons_enabled = false,
-        theme = "auto",
+        theme = "tdsotm",
         component_separators = "|",
         section_separators = "",
         globalstatus = false,
@@ -210,7 +206,7 @@ require("lualine").setup({
                 function() return "λ" end,
                 color = function()
                     return {
-                        fg = vim.o.background == "dark" and "#d75f87" or "#586e75",
+                        fg = vim.o.background == "dark" and "#F25F72" or "#CC102D",
                         gui = "bold",
                     }
                 end,
