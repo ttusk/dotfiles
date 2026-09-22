@@ -64,6 +64,10 @@
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
+    "vimtex": {
+      "rev": "819b98b465d58347f6dc8134cc61db03f18691ad",
+      "src": "https://github.com/lervag/vimtex"
+    },
     "which-key": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"

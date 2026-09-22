@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/luizgustavo/.docker/bin"
+# End of Docker Desktop section.
+
 # >>> coursier install directory >>>
 export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 # <<< coursier install directory <<<

@@ -73,6 +73,10 @@ vim.pack.add({
         src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
         name = "render-markdown",
     },
+    {
+        src = "https://github.com/lervag/vimtex",
+        name = "vimtex",
+    },
 })
 
 require("nvim-tree").setup({
@@ -274,6 +278,7 @@ local treesitter_filetypes = {
     "astro",
     "bash",
     "css",
+    "dockerfile",
     "eelixir",
     "elixir",
     "heex",
@@ -287,6 +292,7 @@ local treesitter_filetypes = {
     "typescript",
     "vim",
     "vimdoc",
+    "yaml",
 }
 
 require("nvim-treesitter").setup({
@@ -296,6 +302,7 @@ require("nvim-treesitter").install({
     "astro",
     "bash",
     "css",
+    "dockerfile",
     "eex",
     "elixir",
     "heex",
@@ -400,6 +407,7 @@ require("conform").setup({
         json = { "prettier" },
         jsonc = { "prettier" },
         markdown = { "prettier" },
+        yaml = { "prettier" },
     },
 })
 require("image").setup({

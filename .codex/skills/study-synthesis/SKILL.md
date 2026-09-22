@@ -32,6 +32,14 @@ Não use para:
 4. Se o usuário pediu para salvar, edite o vault. Se pediu apenas ajuda para entender ou condensar, entregue um rascunho e indique o provável destino sem escrever por conta própria.
 5. Se faltarem fonte, trecho ou contexto indispensável, diga exatamente o que falta. Não fabrique uma síntese plausível.
 
+## Limite de escrita em arquivos do usuário
+
+- Trate arquivos existentes, rascunhos e arquivos que o usuário pediu para preparar como espaço de autoria dele.
+- Se o pedido for criar um arquivo para o usuário escrever, crie somente o mínimo explícito: frontmatter, título e referência fornecida. Não acrescente roteiro, perguntas, tópicos, placeholders, resumos, interpretações, aplicações ou seção `Dúvidas`, salvo pedido explícito.
+- Se o usuário disser que escreverá e depois quer revisão, revise no chat por padrão. Só edite o arquivo quando ele pedir explicitamente para salvar a revisão.
+- Não adicione conteúdo por iniciativa própria a arquivos do usuário, mesmo que pareça útil. Preserve o texto autoral e remova ou reestruture conteúdo existente somente sob instrução explícita.
+- Se o usuário chamar um trecho de *slop*, remova-o conforme pedido e deixe o espaço vazio; não o substitua por novo texto ou scaffolding.
+
 ## Fluxo
 
 ### 1. Entender o material e a finalidade
