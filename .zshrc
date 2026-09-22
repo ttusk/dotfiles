@@ -84,6 +84,25 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd __set_starship_theme
 __set_starship_theme
 eval "$(starship init zsh)"
+__hermes_skin() {
+  if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
+    print -r -- sunbather-dark
+  else
+    print -r -- sunbather-light
+  fi
+}
+
+hermes() {
+  local skin="$(__hermes_skin)"
+  local current
+
+  current="$(command hermes config get display.skin 2>/dev/null)"
+  if [[ "$current" != "$skin" ]]; then
+    command hermes config set display.skin "$skin" >/dev/null 2>&1
+  fi
+
+  command hermes "$@"
+}
 
 # 6. Aliases and helpers
 alias vim='nvim'
