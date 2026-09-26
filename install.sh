@@ -278,6 +278,16 @@ ensure_ghostty() {
   fi
 }
 
+ensure_aerospace() {
+  log "Installing AeroSpace"
+
+  if [[ -d /Applications/AeroSpace.app ]] || "$BREW" list --cask aerospace >/dev/null 2>&1; then
+    printf '  AeroSpace already installed\n'
+  else
+    run "$BREW" install --cask aerospace
+  fi
+}
+
 ensure_oh_my_zsh() {
   log "Installing Oh My Zsh"
 
@@ -526,6 +536,7 @@ main() {
   install_dotfiles
   ensure_brew_formulae
   ensure_ghostty
+  ensure_aerospace
   ensure_oh_my_zsh
   setup_nvm_node
   setup_bun

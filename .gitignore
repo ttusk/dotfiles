@@ -1,6 +1,7 @@
 *
 !.gitignore
 !install.sh
+!.aerospace.toml
 
 # Shell and terminal
 !.zprofile
