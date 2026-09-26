@@ -19,6 +19,63 @@ vim.lsp.config["lua_ls"] = {
         },
     },
 }
+local python_root_markers = {
+    "pyproject.toml",
+    "pyrightconfig.json",
+    "setup.py",
+    "setup.cfg",
+    "requirements.txt",
+    "Pipfile",
+    "uv.lock",
+    ".git",
+}
+
+local function python_language_server(root_dir)
+    if root_dir then
+        local local_cmd = vim.fs.joinpath(root_dir, ".venv", "bin", "pyright-langserver")
+        if vim.fn.executable(local_cmd) == 1 then
+            return local_cmd
+        end
+    end
+
+    return vim.fn.exepath("pyright-langserver")
+end
+
+vim.lsp.config["pyright"] = {
+    cmd = function(dispatchers, config)
+        local cmd = python_language_server(config.root_dir)
+        if cmd == "" then
+            vim.notify("pyright-langserver is not installed", vim.log.levels.ERROR)
+            return
+        end
+        return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
+    end,
+    filetypes = { "python" },
+    root_markers = python_root_markers,
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function(args)
+        local root_dir = vim.fs.root(args.buf, python_root_markers)
+        if python_language_server(root_dir) ~= "" then
+            vim.lsp.enable("pyright")
+        end
+    end,
+})
+
+if vim.fn.executable("pyright-langserver") == 1 then
+    vim.lsp.enable("pyright")
+end
 
 local typescript_global_lib = ""
 if vim.fn.executable("npm") == 1 then

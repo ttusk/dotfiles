@@ -16,7 +16,7 @@ agent:
 terminal:
   backend: local
   cwd: .
-  font_family: "'CaskaydiaMono Nerd Font', monospace"
+  font_family: '''CaskaydiaMono Nerd Font'', monospace'
   timeout: 180
   home_mode: auto
   container_cpu: 1
@@ -93,6 +93,7 @@ delegation:
   max_iterations: 250
 skills:
   creation_nudge_interval: 15
+  external_dirs: []
 kanban:
   review_dispatch: true
 code_execution:
@@ -164,3 +165,9 @@ platform_toolsets:
     - hermes-teams
   google_chat:
     - hermes-google_chat
+approvals:
+  destructive_slash_confirm: false
+onboarding:
+  seen:
+    busy_input_prompt: true
+    tool_progress_prompt: true

@@ -56,7 +56,7 @@ diverged = "<>"
 up_to_date = ""
 [cmd_duration]
 format = " took:$duration "
-style = "#a89c14"
+style = "#5f4b00"
 
 [haskell]
 symbol = "λ"

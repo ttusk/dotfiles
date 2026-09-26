@@ -1,5 +1,5 @@
 theme = light:sunbather-light,dark:sunbather-dark
-font-family = "CaskaydiaMono Nerd Font"
+font-family = "IosevkaTermSlab Nerd Font"
 cursor-style = block
 cursor-style-blink = false
 

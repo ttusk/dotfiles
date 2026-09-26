@@ -61,10 +61,10 @@ vim.pack.add({
         src = "https://github.com/github/copilot.vim",
         name = "copilot",
     },
-    -- {
-    --     src = "https://github.com/folke/which-key.nvim",
-    --     name = "which-key",
-    -- },
+    {
+        src = "https://github.com/folke/which-key.nvim",
+        name = "which-key",
+    },
     {
         src = "https://github.com/3rd/image.nvim",
         name = "image",
@@ -132,14 +132,24 @@ local telescope_actions = require("telescope.actions")
 
 require("telescope").setup({
     defaults = {
-        prompt_prefix = ">> ",
+        prompt_prefix = "> ",
         selection_caret = "> ",
         entry_prefix = "  ",
         multi_icon = "*",
         sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
         layout_config = {
+            width = 0.9,
+            height = 0.85,
             prompt_position = "top",
+            preview_width = 0.55,
         },
+        path_display = { "truncate" },
+        dynamic_preview_title = true,
+        results_title = " Results ",
+        prompt_title = " Search ",
+        preview_title = " Preview ",
+        winblend = 0,
         borderchars = {
             "-",
             "|",
@@ -287,6 +297,7 @@ local treesitter_filetypes = {
     "json",
     "lua",
     "markdown",
+    "python",
     "rust",
     "tsx",
     "typescript",
@@ -312,6 +323,7 @@ require("nvim-treesitter").install({
     "lua",
     "markdown",
     "markdown_inline",
+    "python",
     "rust",
     "tsx",
     "typescript",
@@ -407,6 +419,12 @@ require("conform").setup({
         json = { "prettier" },
         jsonc = { "prettier" },
         markdown = { "prettier" },
+        python = function(bufnr)
+            if require("conform").get_formatter_info("ruff_format", bufnr).available then
+                return { "ruff_format" }
+            end
+            return {}
+        end,
         yaml = { "prettier" },
     },
 })
@@ -428,50 +446,40 @@ require("image").setup({
     hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif", "*.ico" },
 })
 
--- local which_key = require("which-key")
---
--- which_key.setup({
---     delay = 200,
---     icons = {
---         mappings = false,
---         rules = false,
---         colors = false,
---         breadcrumb = ">",
---         separator = "->",
---         group = "+",
---         ellipsis = "...",
---         keys = {
---             Up = "UP",
---             Down = "DOWN",
---             Left = "LEFT",
---             Right = "RIGHT",
---             C = "C",
---             M = "M",
---             D = "D",
---             S = "S",
---             Esc = "ESC",
---             CR = "ENTER",
---             NL = "ENTER",
---             BS = "BS",
---             Space = "SPACE",
---             Tab = "TAB",
---             F1 = "F1",
---             F2 = "F2",
---             F3 = "F3",
---             F4 = "F4",
---             F5 = "F5",
---             F6 = "F6",
---             F7 = "F7",
---             F8 = "F8",
---             F9 = "F9",
---             F10 = "F10",
---             F11 = "F11",
---             F12 = "F12",
---         },
---     },
--- })
---
--- which_key.add({
---     { "<leader>f", group = "find" },
---     { "<leader>m", group = "markdown" },
--- })
+local which_key = require("which-key")
+
+which_key.setup({
+    preset = "modern",
+    delay = 200,
+    icons = {
+        mappings = false,
+        rules = false,
+        colors = false,
+        breadcrumb = ">",
+        separator = "->",
+        group = "+",
+        ellipsis = "...",
+    },
+    win = {
+        border = "single",
+        padding = { 1, 2 },
+        title = true,
+        title_pos = "center",
+    },
+    layout = {
+        width = { min = 24 },
+        spacing = 2,
+    },
+})
+
+which_key.add({
+    { "<leader>b", group = "Buffers" },
+    { "<leader>c", group = "Code" },
+    { "<leader>d", group = "Diagnostics" },
+    { "<leader>f", group = "Find" },
+    { "<leader>g", group = "Git" },
+    { "<leader>h", group = "Help" },
+    { "<leader>m", group = "Markdown" },
+    { "<leader>p", group = "Peek" },
+    { "<leader>r", group = "Config" },
+})

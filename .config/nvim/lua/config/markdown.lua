@@ -92,13 +92,13 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.foldlevel = 99
         vim.opt_local.formatoptions:append("jro")
 
-        map(args.buf, "n", "<leader>mr", "<cmd>RenderMarkdown buf_toggle<cr>", "Toggle Markdown rendering")
-        map(args.buf, "n", "<leader>mp", "<cmd>RenderMarkdown preview<cr>", "Open rendered Markdown preview")
+        map(args.buf, "n", "<leader>mr", "<cmd>RenderMarkdown buf_toggle<cr>", "Toggle render")
+        map(args.buf, "n", "<leader>mp", "<cmd>RenderMarkdown preview<cr>", "Preview Markdown")
         map(args.buf, "n", "<leader>mf", function()
             require("conform").format({ async = true, lsp_format = "fallback" })
-        end, "Format Markdown buffer")
-        map(args.buf, "n", "<leader>ml", "<cmd>MarkdownLint<cr>", "Lint Markdown buffer")
-        map(args.buf, "n", "<leader>ms", toggle_spell, "Toggle Markdown spell checking")
-        map(args.buf, { "n", "x" }, "<leader>mc", toggle_checkbox, "Toggle Markdown checkbox")
+        end, "Format Markdown")
+        map(args.buf, "n", "<leader>ml", "<cmd>MarkdownLint<cr>", "Lint Markdown")
+        map(args.buf, "n", "<leader>ms", toggle_spell, "Toggle spell")
+        map(args.buf, { "n", "x" }, "<leader>mc", toggle_checkbox, "Toggle checkbox")
     end,
 })

@@ -15,8 +15,13 @@ local dockerfile_linters = {}
 if vim.fn.executable("hadolint") == 1 then
     dockerfile_linters = { "hadolint" }
 end
+local python_linters = {}
+if vim.fn.executable("ruff") == 1 then
+    python_linters = { "ruff" }
+end
 
 lint.linters_by_ft = {
+    python = python_linters,
     javascript = { "eslint" },
     javascriptreact = { "eslint" },
     typescript = { "eslint" },

@@ -6,6 +6,35 @@ local function map(lhs, rhs, description)
         desc = description,
     })
 end
+local function peek_documentation()
+    vim.lsp.buf.hover()
+end
+
+local function peek_signature()
+    vim.lsp.buf.signature_help()
+end
+
+local function show_leader_help()
+    local leader = vim.g.mapleader or " "
+    local leader_name = leader == " " and "<Space>" or leader
+
+    telescope.keymaps({
+        modes = { "n" },
+        show_plug = false,
+        lhs_filter = function(lhs)
+            return lhs:sub(1, #leader) == leader or lhs:sub(1, #leader_name) == leader_name
+        end,
+        prompt_title = "Leader help",
+        results_title = "Usage",
+        previewer = false,
+        layout_strategy = "horizontal",
+        layout_config = {
+            width = 0.65,
+            height = 0.6,
+        },
+    })
+end
+
 local function current_buffer_directory()
     local filename = vim.api.nvim_buf_get_name(0)
     if filename == "" then
@@ -16,33 +45,35 @@ end
 
 map("<leader>fc", function()
     telescope.find_files({ cwd = current_buffer_directory() })
-end, "Find files in current directory")
+end, "Files here")
 
-map("<leader>e", "<cmd>NvimTreeFocus<cr>", "Focus file tree")
-map("<leader>gg", "<cmd>LazyGit<cr>", "Open LazyGit")
-map("<leader>ff", telescope.find_files, "Find files")
-map("<leader>fg", telescope.live_grep, "Search text")
-map("<leader>fb", telescope.buffers, "Find buffers")
+map("<leader>e", "<cmd>NvimTreeFocus<cr>", "File tree")
+map("<leader>gg", "<cmd>LazyGit<cr>", "Git UI")
+map("<leader>ff", telescope.find_files, "Files")
+map("<leader>fg", telescope.live_grep, "Search")
+map("<leader>fb", telescope.buffers, "Buffers")
 map("<leader>bn", "<cmd>enew<cr>", "New buffer")
-map("<leader>bd", "<cmd>bdelete<cr>", "Delete buffer")
+map("<leader>bd", "<cmd>bdelete<cr>", "Close buffer")
 map("[b", "<cmd>bprevious<cr>", "Previous buffer")
 map("]b", "<cmd>bnext<cr>", "Next buffer")
-map("<leader>fh", telescope.help_tags, "Search help")
-map("<leader>he", telescope.keymaps, "Show keymaps")
+map("<leader>fh", telescope.help_tags, "Help tags")
+map("<leader>he", show_leader_help, "Leader help")
 map("<leader>d", function()
     vim.diagnostic.open_float(0, { scope = "line" })
-end, "Show line diagnostics")
+end, "Line diagnostic")
 map("<leader>dd", function()
     telescope.diagnostics({ bufnr = 0 })
-end, "Show buffer diagnostics")
-map("<leader>dw", telescope.diagnostics, "Show workspace diagnostics")
-map("<leader>l", "<cmd>Lint<cr>", "Lint current buffer")
+end, "Buffer diagnostics")
+map("<leader>dw", telescope.diagnostics, "Workspace diagnostics")
+map("<leader>l", "<cmd>Lint<cr>", "Lint")
 map("gd", vim.lsp.buf.definition, "Go to definition")
-map("K", vim.lsp.buf.hover, "Show method signature and documentation")
-map("<leader>pd", telescope.lsp_definitions, "Peek method definition")
+map("K", peek_documentation, "Peek docs")
+map("<leader>hd", peek_documentation, "Peek docs")
+map("<leader>hs", peek_signature, "Peek signature")
+map("<leader>pd", telescope.lsp_definitions, "Peek definition")
 map("gI", vim.lsp.buf.implementation, "Go to implementation")
 map("gr", vim.lsp.buf.references, "Find references")
-map("grn", vim.lsp.buf.rename, "Rename symbol across project")
+map("grn", vim.lsp.buf.rename, "Rename symbol")
 
 map("<leader>fm", function()
     require("conform").format({ async = true, lsp_format = "fallback" })
@@ -58,8 +89,8 @@ vim.api.nvim_create_user_command("Reload", reload_config, {
     force = true,
 })
 
-map("<leader>rr", "<cmd>Restart<cr>", "Restart Neovim and reopen current file")
-map("<leader>rc", "<cmd>Reload<cr>", "Reload Neovim config")
+map("<leader>rr", "<cmd>Restart<cr>", "Restart Neovim")
+map("<leader>rc", "<cmd>Reload<cr>", "Reload config")
 local function restart_with_current_file()
     local file = vim.api.nvim_buf_get_name(0)
     local cursor = vim.api.nvim_win_get_cursor(0)
@@ -79,7 +110,7 @@ local function restart_with_current_file()
 end
 
 vim.api.nvim_create_user_command("Restart", restart_with_current_file, {
-    desc = "Restart Neovim and reopen current file",
+    desc = "Restart Neovim",
     force = true,
 })
 
@@ -156,4 +187,4 @@ map("<leader>ct", function()
     else
         vim.cmd("Copilot disable")
     end
-end, "Toggle Copilot suggestions")
+end, "Toggle Copilot")

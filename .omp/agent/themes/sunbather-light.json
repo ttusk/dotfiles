@@ -24,9 +24,9 @@
     "darkGreen": "#10a778",
     "lightGreen": "#5fd7a7",
     "lightPurple": "#a790d5",
-    "yellow": "#f3e430",
-    "lightYellow": "#ffff87",
-    "darkYellow": "#a89c14"
+    "yellow": "#5f4b00",
+    "lightYellow": "#d6b82c",
+    "darkYellow": "#5f4b00"
   },
   "colors": {
     "accent": "darkRed",
@@ -35,7 +35,7 @@
     "borderMuted": "lightGray",
     "success": "darkGreen",
     "error": "darkRed",
-    "warning": "darkYellow",
+    "warning": "#5f4b00",
     "muted": "mediumGray",
     "dim": "lighterBlack",
     "text": "lightBlack",
